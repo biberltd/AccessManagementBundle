@@ -1,0 +1,4 @@
+services:
+    core_access_management_bundle.model:
+            class:        BiberLtd\Core\Bundles\AccessManagementBundle\Services\AccessManagementModel
+            arguments:    [@kernel, "default", "doctrine"]

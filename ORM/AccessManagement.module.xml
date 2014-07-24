@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<skipper version="3.0.0.1104" mvc="Symfony2" orm="Doctrine2">
+  <module name="AccessManagementBundle" import-format="Doctrine2Php" import-path="../Entity" uuid="5bc56f3a-99a8-4b7d-bb6e-8834f34759f4">
+    <entity name="MemberGroupAccessRight" description="Handles access rights for member groups." uuid="162b086e-b1d5-4565-8983-d8cbce9e7ce3">
+      <field name="member_group" description="Member group." type="integer" size="5" required="true" primary="true" uuid="cec22b63-4f6f-41e3-b778-fdd112ba535d"/>
+      <field name="action" description="Action to be restricted." type="smallint" size="5" required="true" primary="true" uuid="90eb0c74-1887-4d94-9479-308537f15758"/>
+      <field name="right" description="g:granted,r:revoked." type="string" size="1" required="true" uuid="77292c59-7f78-4dd8-8d51-d498b049836f"/>
+      <field name="date_assigned" description="Date when the right is assigned." type="datetime" required="true" uuid="65db0f9d-d627-4c72-b6e1-5a3f4a02af29"/>
+      <index name="idx_u_member_group_access_right" unique="true">
+        <index-field name="member_group"/>
+        <index-field name="action"/>
+      </index>
+      <index name="idx_n_member_group_access_right_date_assigned">
+        <index-field name="date_assigned"/>
+      </index>
+      <orm-attributes>
+        <attribute name="options">
+          <attribute name="charset">utf8</attribute>
+          <attribute name="collate">utf8_turkish_ci</attribute>
+          <attribute name="engine">innodb</attribute>
+        </attribute>
+        <attribute name="table">member_group_access_right</attribute>
+        <attribute name="export-file-name">MemberGroupAccessRight.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="MemberGroupAccessRight" to="Action" caption="idx_f_member_group_access_right_action" inverse-alias="action" uuid="f7416a86-8203-4df1-b609-39f40c363d54">
+      <association-field from="action" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="MemberGroupAccessRight" to="MemberGroup" caption="idx_f_member_group_action_right_member_group" inverse-alias="member_group" uuid="3b32299d-9d73-4e84-ab37-ceb197cacb05">
+      <association-field from="member_group" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <entity name="MemberAccessRight" description="Handles individual member access rights." uuid="e06cfbce-8d6c-4364-a085-55a548b319d4">
+      <field name="member" description="Member who takes action." type="integer" size="10" required="true" primary="true" uuid="a72e5da2-2e41-491d-9950-c8878c5653af"/>
+      <field name="action" description="Action taken by member." type="smallint" size="5" required="true" primary="true" uuid="544c6046-5d49-4711-ae0c-9903112cb930"/>
+      <field name="right" description="g:granted,r:revoked" type="string" size="1" default="g" required="true" uuid="6f6041e9-9552-428f-a1db-55cc9083c6b0"/>
+      <field name="date_assigned" description="Date when the access right is assigned." type="datetime" required="true" uuid="3b7913aa-252e-442e-9b21-fdf99bf5babe"/>
+      <index name="idx_u_member_access_right" unique="true">
+        <index-field name="member"/>
+        <index-field name="action"/>
+      </index>
+      <index name="idx_n_member_access_right_date_assigned">
+        <index-field name="date_assigned"/>
+      </index>
+      <orm-attributes>
+        <attribute name="options">
+          <attribute name="charset">utf8</attribute>
+          <attribute name="collate">utf8_turkish_ci</attribute>
+          <attribute name="engine">innodb</attribute>
+        </attribute>
+        <attribute name="table">member_access_right</attribute>
+        <attribute name="export-file-name">MemberAccessRight.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="MemberAccessRight" to="Action" caption="idx_f_member_access_right_action" inverse-alias="action" uuid="9ba8201f-7bba-4862-8b9c-370a04ad571d">
+      <association-field from="action" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <association from="MemberAccessRight" to="Member" caption="idx_f_member_access_right_member" inverse-alias="member" uuid="0118d186-c2e2-467f-aba1-8c23f694cf15">
+      <association-field from="member" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+      </orm-attributes>
+    </association>
+    <comment caption="AccessManagementBundle Pricing" description="member_access_right: 150 TL&#10;member_group_access_right: 150 TL&#10;&#10;toplam: 300 TL" uuid="f89429c7-c254-406f-9b3b-baf5188aed5f"/>
+    <orm-attributes>
+      <attribute name="file-suffix">without-suffix</attribute>
+      <attribute name="filename-format">entity-name-only</attribute>
+      <attribute name="namespace">BiberLtd\Core\Bundles\AccessManagementBundle\Entity</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="162b086e-b1d5-4565-8983-d8cbce9e7ce3" bg-color="4294967295" hdr-color="4292006610" position-x="207" position-y="23" size-x="0" size-x2="139" size-y="0" size-y2="73"/>
+    <module uuid="5bc56f3a-99a8-4b7d-bb6e-8834f34759f4" bg-color="4291231744" size-x="0" size-x2="550" size-y="0" size-y2="200"/>
+    <entity uuid="e06cfbce-8d6c-4364-a085-55a548b319d4" bg-color="4294967295" hdr-color="4292006610" position-x="386" position-y="40" size-x="0" size-x2="130" size-y="0" size-y2="73"/>
+    <comment uuid="f89429c7-c254-406f-9b3b-baf5188aed5f" bg-color="4294951085" position-x="0" position-y="17" size-x="0" size-x2="163" size-y="0" size-y2="68" txt-color="4278190080"/>
+  </visual-data>
+</skipper>
