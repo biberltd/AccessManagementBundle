@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Controller;
+namespace BiberLtd\Bundle\AccessManagementBundle\Controller;
 
 
 class InstallController {

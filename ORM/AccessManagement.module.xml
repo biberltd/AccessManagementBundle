@@ -73,7 +73,7 @@
     <orm-attributes>
       <attribute name="file-suffix">without-suffix</attribute>
       <attribute name="filename-format">entity-name-only</attribute>
-      <attribute name="namespace">BiberLtd\Core\Bundles\AccessManagementBundle\Entity</attribute>
+      <attribute name="namespace">BiberLtd\Bundle\AccessManagementBundle\Entity</attribute>
     </orm-attributes>
   </module>
   <visual-data>

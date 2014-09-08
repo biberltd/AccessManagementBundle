@@ -1,17 +1,17 @@
 biberltd_core_access_management_index:
     pattern:  access
-    defaults: { _controller: BiberLtdCoreBundlesAccessManagementBundle:Default:index }
+    defaults: { _controller: BiberLtdBundleAccessManagementBundle:Default:index }
 biberltd_core_access_management_test_get_locale:
     pattern:  access/test/get_locale
-    defaults: { _controller: BiberLtdCoreBundlesAccessManagementBundle:Test:getLocale, _locale: en }
+    defaults: { _controller: BiberLtdBundleAccessManagementBundle:Test:getLocale, _locale: en }
 biberltd_core_access_management_test:
     pattern:  access/test
-    defaults: { _controller: BiberLtdCoreBundlesAccessManagementBundle:Test:test, _locale: en }
+    defaults: { _controller: BiberLtdBundleAccessManagementBundle:Test:test, _locale: en }
 biberltd_core_access_management_test_get_locale:
     pattern:  access/test/test
-    defaults: { _controller: BiberLtdCoreBundlesAccessManagementBundle:Test:get_locale, _locale: en }
+    defaults: { _controller: BiberLtdBundleAccessManagementBundle:Test:get_locale, _locale: en }
 biberltd_core_access_management_test_set_locale:
     pattern:  access/test/set_locale/{locale}
-    defaults: { _controller: BiberLtdCoreBundlesAccessManagementBundle:Test:setLocale, _locale: en }
+    defaults: { _controller: BiberLtdBundleAccessManagementBundle:Test:setLocale, _locale: en }
     requirements:
       _locale: en|tr

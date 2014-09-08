@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        InvalidGroupOrActionException
- * @package		BiberLtd\Core\Bundles\AccessManagementBundle
+ * @package		BiberLtd\Bundle\AccessManagementBundle
  *
  * @author		Can Berkol
  * @version     1.0.0
@@ -13,9 +13,9 @@
  * @description EThrows if member group or action is not found in database.
  *
  */
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Exceptions;
+namespace BiberLtd\Bundle\AccessManagementBundle\Exceptions;
 
-use BiberLtd\Bundles\ExceptionBundle\Services;
+use BiberLtd\Bundle\ExceptionBundle\Services;
 
 class InvalidGroupOrActionException extends Services\ExceptionAdapter {
     public function __construct($kernel, $message = "", $code = 999001, Exception $previous = null) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        BypassException
- * @package		BiberLtd\Core\Bundles\AccessManagementBundle
+ * @package		BiberLtd\Bundle\AccessManagementBundle
  *
  * @author		Can Berkol
  * @version     1.0.0
@@ -13,9 +13,9 @@
  * @description Throws if bypass variable has  any other value than a boolean..
  *
  */
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Exceptions;
+namespace BiberLtd\Bundle\AccessManagementBundle\Exceptions;
 
-use BiberLtd\Bundles\ExceptionBundle\Services;
+use BiberLtd\Bundle\ExceptionBundle\Services;
 
 class BypassException extends Services\ExceptionAdapter {
     public function __construct($kernel, $message = "", $code = 999002, Exception $previous = null) {

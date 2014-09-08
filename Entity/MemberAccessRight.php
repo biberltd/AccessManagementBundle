@@ -13,7 +13,7 @@
  * @description Model / Entity class.
  *
  */
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Entity;
+namespace BiberLtd\Bundle\AccessManagementBundle\Entity;
 
 use BiberLtd\Core\CoreEntity;
 use Doctrine\ORM\Mapping AS ORM;
@@ -41,14 +41,14 @@ class MemberAccessRight extends CoreEntity
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\LogBundle\Entity\Action")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\LogBundle\Entity\Action")
      * @ORM\JoinColumn(name="action", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $action;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\MemberManagementBundle\Entity\Member")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MemberManagementBundle\Entity\Member")
      * @ORM\JoinColumn(name="member", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $member;
@@ -130,7 +130,7 @@ class MemberAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @param           BiberLtd\Core\Bundles\LogBundle\Entity\Action          $action
+     * @param           BiberLtd\Bundle\LogBundle\Entity\Action          $action
      *
      * @return          object          $this
      */
@@ -150,7 +150,7 @@ class MemberAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @return          BiberLtd\Core\Bundles\LogBundle\Entity\Action          $this->action
+     * @return          BiberLtd\Bundle\LogBundle\Entity\Action          $this->action
      */
     public function getAction(){
         return $this->action;
@@ -163,7 +163,7 @@ class MemberAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @param           BiberLtd\Core\Bundles\MemberManagementBundle\Entity\Member          $member
+     * @param           BiberLtd\Bundle\MemberManagementBundle\Entity\Member          $member
      *
      * @return          object          $this
      */
@@ -183,7 +183,7 @@ class MemberAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @return          BiberLtd\Core\Bundles\MemberManagementBundle\Entity\Member          $this->member
+     * @return          BiberLtd\Bundle\MemberManagementBundle\Entity\Member          $this->member
      */
     public function getMember(){
         return $this->member;
