@@ -1,0 +1,11 @@
+parameters:
+  # AccessManagementBundle actions
+  # actionname: id
+  # Make sure that keys are unique.
+  actions:
+      grant_member_action:              1
+      grant_member_group_action:        2
+      revoke_member_action:             3
+      revoke_member_group_action:       4
+      list_member_access_rights:        5
+      list_member_group_access_rights:  6
