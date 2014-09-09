@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        DuplicateAccessRights
- * @package		BiberLtd\Core\Bundles\AccessManagementBundle
+ * @package		BiberLtd\Bundle\AccessManagementBundle
  *
  * @author		Can Berkol
  * @version     1.0.0
@@ -14,9 +14,9 @@
  *              in member_group_access_right table..
  *
  */
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Exceptions;
+namespace BiberLtd\Bundle\AccessManagementBundle\Exceptions;
 
-use BiberLtd\Bundles\ExceptionBundle\Services;
+use BiberLtd\Bundle\ExceptionBundle\Services;
 
 class BypassException extends Services\ExceptionAdapter {
     public function __construct($kernel, $message = "", $code = 999000, Exception $previous = null) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @name        MemberGroupAccessRight
- * @package		BiberLtd\Core\AccessManagementBundle
+ * @package		BiberLtd\Bundle\CoreBundle\AccessManagementBundle
  *
  * @author		Murat Ünal
  * @version     1.0.2
@@ -13,8 +13,8 @@
  * @description Model / Entity class.
  *
  */
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Entity;
-use BiberLtd\Core\CoreEntity;
+namespace BiberLtd\Bundle\AccessManagementBundle\Entity;
+use BiberLtd\Bundle\CoreBundle\CoreEntity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -40,14 +40,14 @@ class MemberGroupAccessRight extends CoreEntity
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\LogBundle\Entity\Action")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\LogBundle\Entity\Action")
      * @ORM\JoinColumn(name="action", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $action;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="BiberLtd\Core\Bundles\MemberManagementBundle\Entity\MemberGroup")
+     * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup")
      * @ORM\JoinColumn(name="member_group", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $member_group;
@@ -129,7 +129,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @param           BiberLtd\Core\Bundles\LogBundle\Entity\Action          $action
+     * @param           BiberLtd\Bundle\LogBundle\Entity\Action          $action
      *
      * @return          object          $this
      */
@@ -149,7 +149,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @return          BiberLtd\Core\Bundles\LogBundle\Entity\Action          $this->action
+     * @return          BiberLtd\Bundle\LogBundle\Entity\Action          $this->action
      */
     public function getAction(){
         return $this->action;
@@ -162,7 +162,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @param           BiberLtd\Core\Bundles\MemberManagementBundle\Entity\MemberGroup          $member_group
+     * @param           BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup          $member_group
      *
      * @return          object          $this
      */
@@ -182,7 +182,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @since			1.0.0
      * @version         1.0.0
      *
-     * @return          BiberLtd\Core\Bundles\MemberManagementBundle\Entity\MemberGroup          $this->member_group
+     * @return          BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup          $this->member_group
      */
     public function getMemberGroup(){
         return $this->member_group;

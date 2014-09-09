@@ -18,19 +18,19 @@
  * @date        09.07.2014
  */
 
-namespace BiberLtd\Core\Bundles\AccessManagementBundle\Services;
+namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 
 /** Entities to be used */
-use BiberLtd\Core\Bundles\AccessManagementBundle\Entity as BundleEntity;
-use BiberLtd\Core\Bundles\LogBundle\Entity as LBEntity;
-use BiberLtd\Core\Bundles\MemberManagementBundle\Entity as MMBEntity;
+use BiberLtd\Bundle\AccessManagementBundle\Entity as BundleEntity;
+use BiberLtd\Bundle\LogBundle\Entity as LBEntity;
+use BiberLtd\Bundle\MemberManagementBundle\Entity as MMBEntity;
 /** Models to be loaded */
-use BiberLtd\Core\Bundles\LogBundle\Services as LBService;
-use BiberLtd\Core\Bundles\MemberManagementBundle\Services as MMBService;
+use BiberLtd\Bundle\LogBundle\Services as LBService;
+use BiberLtd\Bundle\MemberManagementBundle\Services as MMBService;
 /** Core Service */
-use BiberLtd\Core\CoreModel;
-use BiberLtd\Core\Services as CoreServices;
-use BiberLtd\Core\Exceptions as CoreExceptions;
+use BiberLtd\Bundle\CoreBundle\CoreModel;
+use BiberLtd\Bundle\CoreBundle\Services as CoreServices;
+use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
 
 class AccessManagementModel extends CoreModel {
 
@@ -740,7 +740,7 @@ class AccessManagementModel extends CoreModel {
     }
     /**
      * @name            validateAndGetAction()
-     *                  Validates $action  parameter and returns BiberLtd\Core\Bundles\LogBundle\Entity\Action if found in database.
+     *                  Validates $action  parameter and returns BiberLtd\Bundle\LogBundle\Entity\Action if found in database.
      *
      * @since           1.0.9
      * @version         1.0.9
@@ -750,7 +750,7 @@ class AccessManagementModel extends CoreModel {
      *
      * @param           mixed           $action
      *
-     * @return          object          BiberLtd\Core\Bundles\LogBundle\Entity\Action
+     * @return          object          BiberLtd\Bundle\LogBundle\Entity\Action
      */
     private function validateAndGetAction($action){
         $model = new LBService\LogModel($this->kernel, $this->db_connection, $this->orm);
@@ -777,7 +777,7 @@ class AccessManagementModel extends CoreModel {
     }
     /**
      * @name            validateAndGetMember()
-     *                  Validates $member parameter and returns BiberLtd\Core\Bundles\MemberManagementBundle\Entity\Member if found in database.
+     *                  Validates $member parameter and returns BiberLtd\Bundle\MemberManagementBundle\Entity\Member if found in database.
      *
      * @since           1.0.9
      * @version         1.0.9
@@ -787,7 +787,7 @@ class AccessManagementModel extends CoreModel {
      *
      * @param           mixed           $member
      *
-     * @return          object          BiberLtd\Core\Bundles\ProductManagementBundle\Entity\Member
+     * @return          object          BiberLtd\Bundle\ProductManagementBundle\Entity\Member
      */
     private function validateAndGetMember($member){
         $model = new MMBService\MemberManagementModel($this->kernel, $this->db_connection, $this->orm);
@@ -817,7 +817,7 @@ class AccessManagementModel extends CoreModel {
     }
     /**
      * @name            validateAndGetMemberGroup()
-     *                  Validates $member parameter and returns BiberLtd\Core\Bundles\MemberManagementBundle\Entity\MemberGroup if found in database.
+     *                  Validates $member parameter and returns BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup if found in database.
      *
      * @since           1.0.9
      * @version         1.0.9
@@ -827,7 +827,7 @@ class AccessManagementModel extends CoreModel {
      *
      * @param           mixed           $group
      *
-     * @return          object          BiberLtd\Core\Bundles\ProductManagementBundle\Entity\MemberGroup
+     * @return          object          BiberLtd\Bundle\ProductManagementBundle\Entity\MemberGroup
      */
     private function validateAndGetMemberGroup($group){
         $model = new MMBService\MemberManagementModel($this->kernel, $this->db_connection, $this->orm);
