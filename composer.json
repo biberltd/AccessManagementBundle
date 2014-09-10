@@ -1,5 +1,5 @@
 {
-    "name": "biberltd/accessmanagementbundle",
+    "name": "biberltd/access-management-bundle",
     "type": "symfony-bundle",
     "description": "",
     "keywords": [],
@@ -17,13 +17,13 @@
         }
     ],
     "require": {
-        "biberltd/corebundle" : "~3.1",
-        "biberltd/logbundle" : "~3.1"
+        "biberltd/core-bundle" : "self.version",
+        "biberltd/log-bundle" : "self.version"
     },
     "autoload": {
-        "psr-0": { "BiberLtd\\AccessManagementBundle": "" }
+        "psr-0": { "BiberLtd\\Bundle\\AccessManagementBundle": "" }
 
     },
     "minimum-stability": "dev",
-    "target-dir": "BiberLtd/AccessManagementBundle"
+    "target-dir": "BiberLtd/Bundle/AccessManagementBundle"
 }
