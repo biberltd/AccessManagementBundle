@@ -17,7 +17,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.2"
+        "biberltd/corebundle" : "~3.1",
+        "biberltd/logbundle" : "~3.1"
     },
     "autoload": {
         "psr-0": { "BiberLtd\\AccessManagementBundle": "" }
