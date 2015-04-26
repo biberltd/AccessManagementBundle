@@ -1,4 +1,14 @@
 services:
+    access_validator:
+        class:        BiberLtd\Bundle\AccessManagementBundle\Services\AccessValidator
+        arguments:    [@kernel]
+    am.listener:
+        class:        BiberLtd\Bundle\AccessManagementBundle\Listeners\AMListener
+        tags:         [{name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -10}]
+        arguments:    [@kernel]
+    session_manager:
+        class:        BiberLtd\Bundle\AccessManagementBundle\Services\SessionManager
+        arguments:    [@kernel]
     core_access_management_bundle.model:
             class:        BiberLtd\Bundle\AccessManagementBundle\Services\AccessManagementModel
             arguments:    [@kernel, "default", "doctrine"]
