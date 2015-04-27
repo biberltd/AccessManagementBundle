@@ -17,8 +17,8 @@
         }
     ],
     "require": {
-        "biberltd/core-bundle" : "self.version",
-        "biberltd/log-bundle" : "self.version"
+        "biberltd/core-bundle" : "~3.2",
+        "biberltd/log-bundle" : "~3.2"
     },
     "autoload": {
         "psr-0": { "BiberLtd\\Bundle\\AccessManagementBundle": "" }
