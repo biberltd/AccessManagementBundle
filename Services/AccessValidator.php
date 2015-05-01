@@ -14,8 +14,8 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.5
- * @date        05.06.2014
+ * @version     1.0.1
+ * @date        30.04.2015
  *
  */
 
@@ -65,8 +65,8 @@ class AccessValidator extends Core{
      *
      * @author          Can Berkol
      *
-     * @since           1.0.4
-     * @version         1.0.4
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @param           string          $actionCode
      * @param           array           $memberData
@@ -93,8 +93,8 @@ class AccessValidator extends Core{
      *
      * @author          Can Berkol
      *
-     * @since           1.0.5
-     * @version         1.0.5
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @param           string          $actionCode
      * @param           array           $memberData
@@ -121,8 +121,8 @@ class AccessValidator extends Core{
      *                  Checks if a given member is guest.
      *
      * @author          Can Berkol
-     * @since           1.0.4
-     * @version         1.0.4
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @param           array           $member_data     if not provided; will be read from session.
      *
@@ -141,30 +141,15 @@ class AccessValidator extends Core{
         }
         return false;
     }
-    /**
-     * @name            is_guest()
-     *                  Checks if a given member is guest.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.4
-     *
-     * @param           array           $member_data     if not provided; will be read from session.
-     *
-     * @return          bool
-     * @deprecated      Will be removed in v1.2.0. Use $this->isGuest() instead.
-     */
-    public function is_guest($member_data = null){
-       return $this->isGuest($member_data);
-    }
+
     /**
      * @name            isAuthenticated()
      *                  Checks if a given member is guest.
      *
      * @author          Can Berkol
      *
-     * @since           1.0.4
-     * @version         1.0.4
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @param           array           $member_data     if not provided; will be read from session.
      *
@@ -182,32 +167,15 @@ class AccessValidator extends Core{
         }
         return false;
     }
-    /**
-     * @name            is_authenticated()
-     *                  Checks if a given member is guest.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.4
-     *
-     * @param           array           $member_data     if not provided; will be read from session.
-     *
-     * @deprecated      Will be removed in v1.2.0
-     *
-     * @return          bool
-     */
-    public function is_authenticated($member_data = null){
-        return $this->isAuthenticated($member_data);
-    }
+
     /**
      * @name            hasAccess()
      *                  Checks if a given member is guest.
      *
      * @author          Can Berkol
      *
-     * @since           1.0.4
-     * @version         1.0.4
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @param           array           $member_data        if not provided; will be read from session.
      * @param           array           $access_map         access map to process
@@ -324,33 +292,13 @@ class AccessValidator extends Core{
         }
     }
     /**
-     * @name            has_access()
-     *                  Checks if a given member is guest.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.4
-     *
-     * @param           array           $member_data        if not provided; will be read from session.
-     * @param           array           $access_map         access map to process
-     * @debug           bool            $debug              if set to true debug messages will be outputted.
-     *
-     * @return          bool
-     *
-     * @deprecated      Will be removed in v1.2.0. use $this->hasAccess() instead.
-     */
-    public function has_access($member_data = null, $access_map = array(), $debug = false){
-        return $this->hasAccess($member_data, $access_map, $debug);
-    }
-    /**
      * @name            decryptSessionData()
      *                  Decrypts the session data.
      *
      * @author          Can Berkol
      *
-     * @since           1.0.4
-     * @version         1.0.4
+     * @since           1.0.0
+     * @version         1.0.0
      *
      * @return          array       $data
      */
@@ -379,25 +327,15 @@ class AccessValidator extends Core{
         }
         return $data;
     }
-    /**
-     * @name            decrypt_session_data()
-     *                  Decrypts the session data.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.4
-     *
-     * @deprecated      will be depreceated in v1.2.0, use $this->decryptSessionData() instead.
-     *
-     * @return          array       $data
-     */
-    private function decrypt_session_data(){
-        return $this->decryptSessionData();
-    }
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.1						30.04.2015
+ * Can Berkol
+ * ****************************************
+ * FR :: Deprecated methods have been removed.
+ *
  * ****************************************
  * v1.0.0						26.04.2015
  * TW #

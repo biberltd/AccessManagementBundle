@@ -7,8 +7,8 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.0
- * @date        26.04.2015
+ * @version     1.0.1
+ * @date        30.05.2015
  *
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
@@ -237,24 +237,7 @@ class SessionManager extends Core{
 
         return true;
     }
-    /**
-     * @name            add_detail()
-     *                  Adds authentication detail.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @deprecated      Use $this->addDetail() instead. Will be removed in v1.1.0
-     *
-     * @param           string          $key
-     * @param           mixed           $value
-     *
-     * @return          true
-     */
-    public function add_detail($key, $value){
-        return $this->addDetail($key, $value);
-    }
+
     /**
      * @name            getDetail()
      *                  Gets authentication detail.
@@ -276,23 +259,7 @@ class SessionManager extends Core{
 
         return false;
     }
-    /**
-     * @name            get_detail()
-     *                  Gets authentication detail.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           $key            string
-     *
-     * @deprecated      Use $this->getDetail() instead. Will be removed in v1.1.0
-     *
-     * @return          mixed
-     */
-    public function get_detail($key){
-        return $this->getDetail($key);
-    }
+
     /**
      * @name            getId()
      *                  Returns server session id
@@ -324,21 +291,7 @@ class SessionManager extends Core{
 
         return $current;
     }
-    /**
-     * @name            dump_details()
-     *                  Gets all authentication details.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @deprecated      Use $this->dumpDetails() instead. Will be removed in v1.1.0
-     *
-     * @return          array
-     */
-    public function dump_details(){
-        return $this->dumpDetails();
-    }
+
     /**
      * @name            register()
      *                  Registers a session into database.
@@ -531,6 +484,12 @@ class SessionManager extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.1						30.04.2015
+ * Can Berkol
+ * ****************************************
+ * FR :: Deprecated functions have been removed.
+ *
  * ****************************************
  * v1.0.0						26.04.2015
  * TW #
