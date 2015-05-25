@@ -14,8 +14,8 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.1.0
- * @date        09.07.2014
+ * @version     1.1.1
+ * @date        25.05.2015
  */
 
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
@@ -44,11 +44,11 @@ class AccessManagementModel extends CoreModel {
      * @version         1.0.0
      *
      * @param           object          $kernel
-     * @param           string          $db_connection  Database connection key as set in app/config.yml
+     * @param           string          $dbConnection  Database connection key as set in app/config.yml
      * @param           string          $orm            ORM that is used.
      */
-    public function __construct($kernel, $db_connection = 'default', $orm = 'doctrine') {
-        parent::__construct($kernel, $db_connection, $orm);
+    public function __construct($kernel, $dbConnection = 'default', $orm = 'doctrine') {
+        parent::__construct($kernel, $dbConnection, $orm);
         /**
          * Register entity names for easy reference.
          */
@@ -753,7 +753,7 @@ class AccessManagementModel extends CoreModel {
      * @return          object          BiberLtd\Bundle\LogBundle\Entity\Action
      */
     private function validateAndGetAction($action){
-        $model = new LBService\LogModel($this->kernel, $this->db_connection, $this->orm);
+        $model = new LBService\LogModel($this->kernel, $this->dbConnection, $this->orm);
         if (!is_numeric($action) && !is_string($action) && !$action instanceof LBEntity\Action) {
             return $this->createException('InvalidParameter', '$action parameter must hold BiberLtd\\Core\\Bundles\\LogBundle\\Entity\\Action Entity, string representing action code, or integer representing database row id', 'msg.error.invalid.parameter.action');
         }
@@ -790,7 +790,7 @@ class AccessManagementModel extends CoreModel {
      * @return          object          BiberLtd\Bundle\ProductManagementBundle\Entity\Member
      */
     private function validateAndGetMember($member){
-        $model = new MMBService\MemberManagementModel($this->kernel, $this->db_connection, $this->orm);
+        $model = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
         if (!is_numeric($member) && !is_string($member) && !$member instanceof MMBEntity\Member) {
             return $this->createException('InvalidParameter', '$member parameter must hold BiberLtd\\Core\\Bundles\\MemberManagementBundle\\Entity\\Member Entity, string representing username or email, or integer representing database row id', 'msg.error.invalid.parameter.member');
         }
@@ -830,7 +830,7 @@ class AccessManagementModel extends CoreModel {
      * @return          object          BiberLtd\Bundle\ProductManagementBundle\Entity\MemberGroup
      */
     private function validateAndGetMemberGroup($group){
-        $model = new MMBService\MemberManagementModel($this->kernel, $this->db_connection, $this->orm);
+        $model = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
         if (!is_numeric($group) && !is_string($group) && !$group instanceof MMBEntity\MemberGroup) {
             return $this->createException('InvalidParameter', '$group parameter must hold BiberLtd\\Core\\Bundles\\MemberManagementBundle\\Entity\\MemberGroup Entity, string representing url_key, or integer representing database row id', 'msg.error.invalid.parameter.group');
         }
@@ -856,6 +856,12 @@ class AccessManagementModel extends CoreModel {
 
 /**
  * Change Log
+ * **************************************
+ * v1.1.1                      25.05.2015
+ * Can Berkol
+ * **************************************
+ * BF :: db_connection is replaced with dbConnection
+ *
  * **************************************
  * v1.1.0                      Can Berkol
  * 09.07.2014

@@ -7,8 +7,8 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.1
- * @date        30.05.2015
+ * @version     1.0.2
+ * @date        25.05.2015
  *
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
@@ -40,7 +40,7 @@ class SessionManager extends Core{
      * @author          Can Berkol
      *
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.2
      *
      *
      */
@@ -55,7 +55,7 @@ class SessionManager extends Core{
      *
      * @author          Can Berkol
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.2
      *
      * @param           string      $username
      * @param           string      $password
@@ -68,7 +68,7 @@ class SessionManager extends Core{
         /** Validate account */
         $response = $MMModel->validateAccount($username, $password);
 
-        if($response['error']){
+        if($response->error->exist){
             $this->session->set('authentication_data', false);
             $this->session->set('is_logged_in', false);
 
@@ -77,7 +77,7 @@ class SessionManager extends Core{
         /**
          * Get Member Details
          */
-        $member = $response['result']['set'];
+        $member = $response->result->set;
 
         /**
          * Get member's groups.
@@ -85,8 +85,8 @@ class SessionManager extends Core{
         $response = $MMModel->listGroupsOfMember($member);
         $group_codes = array();
         $groupIds = array();
-        if(!$response['error']){
-            $groups = $response['result']['set'];
+        if(!$response->error->exist){
+            $groups = $response->result->set;
             foreach($groups as $group){
                 $groupIds[] = $group->getId();
                 $group_codes[] = $group->getCode();
@@ -95,30 +95,30 @@ class SessionManager extends Core{
 
         $grantedActions = array();
         $response = $AMModel->listGrantedActionsOfMember($member->getId());
-        if(!$response['error']){
-            foreach($response['result']['set'] as $action){
+        if(!$response->error->exist){
+            foreach($response->result->set as $action){
                 $grantedActions[$action->getId()] = $action->getCode();
             }
         }
         foreach($groupIds as $groupId){
             $response = $AMModel->listGrantedActionsOfMemberGroup($groupId);
-            if(!$response['error']){
-                foreach($response['result']['set'] as $action){
+            if(!$response->error->exist){
+                foreach($response->result->set as $action){
                     $grantedActions[$action->getId()] = $action->getCode();
                 }
             }
         }
         $revokedActions = array();
         $response = $AMModel->listRevokedActionsOfMember($member->getId());
-        if(!$response['error']){
-            foreach($response['result']['set'] as $action){
+        if(!$response->error->exist){
+            foreach($response->result->set as $action){
                 $revokedActions[$action->getId()] = $action->getCode();
             }
         }
         foreach($groupIds as $groupId){
             $response = $AMModel->listRevokedActionsOfMemberGroup($groupId);
-            if(!$response['error']){
-                foreach($response['result']['set'] as $action){
+            if(!$response->error->exist){
+                foreach($response->result->set as $action){
                     $revokedActions[$action->getId()] = $action->getCode();
                 }
             }
@@ -298,7 +298,7 @@ class SessionManager extends Core{
      *
      * @author          Can Berkol
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.2
      *
      * @return          mixed                   bool or Session entity.
      */
@@ -324,9 +324,9 @@ class SessionManager extends Core{
         else{
             $response = $logModel->getSession($generatedSessionId, 'session_id');
         }
-        if(!$response['error']){
+        if(!$response->error->exist){
             $sessionExists = true;
-            $sessionEntry = $response['result']['set'];
+            $sessionEntry = $response->result->set;
         }
         /**
          * If session exists we do not need to register a new one.
@@ -345,8 +345,8 @@ class SessionManager extends Core{
             'site'          => 1,   /** @todo multi site */
         );
         $response = $logModel->insertSession($sessionEntryData);
-        if(!$response['error']){
-            $insertedSession = $response['result']['set'][0];
+        if(!$response->error->exist){
+            $insertedSession = $response->result->set[0];
             return $insertedSession;
         }
         return false;
@@ -357,7 +357,7 @@ class SessionManager extends Core{
      *
      * @author          Can Berkol
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.2
      *
      * @param           string      $action
      * @param           integer     $site
@@ -382,9 +382,9 @@ class SessionManager extends Core{
         else{
             $response = $logModel->getSession($generatedSessionId, 'session_id');
         }
-        if(!$response['error']){
+        if(!$response->error->exist){
             $sessionExists = true;
-            $sessionEntry = $response['result']['set'];
+            $sessionEntry = $response->result->set;
         }
         /**
          * If session does not exists create one.
@@ -416,8 +416,8 @@ class SessionManager extends Core{
      *                  Updates a session
      *
      * @author          Can Berkol
-     * @since           1.0.3
-     * @version         1.0.3
+     * @since           1.0.0
+     * @version         1.0.2
      *
      * @param           string      $log        login, logout
      * @return          mixed                   bool or Session entity.
@@ -440,9 +440,9 @@ class SessionManager extends Core{
         else{
             $response = $logModel->getSession($generatedSessionId, 'session_id');
         }
-        if(!$response['error']){
+        if(!$response->error->exist){
             $sessionExists = true;
-            $sessionEntry = $response['result']['set'];
+            $sessionEntry = $response->result->set;
         }
         /**
          * If session exists we do not need to register a new one.
@@ -457,10 +457,10 @@ class SessionManager extends Core{
             case 'login':
 
                 $response = $memberModel->getMember($this->get_detail('id'), 'id');
-                if($response['error']){
+                if($response->error->exist){
                     return false;
                 }
-                $member = $response['result']['set'];
+                $member = $response->result->set;
                 unset($response);
                 $sessionEntry->setUsername($this->get_detail('username'));
                 $sessionEntry->setMember($member);
@@ -475,7 +475,7 @@ class SessionManager extends Core{
 
         $response = $logModel->updateSession($sessionEntry, 'entity');
 
-        if(!$response['error']){
+        if(!$response->error->exist){
             unset($response);
             return $sessionEntry;
         }
@@ -484,6 +484,12 @@ class SessionManager extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.2						25.05.2015
+ * Can Berkol
+ * ****************************************
+ * BF :: ModelResponse usgage is fixed.
+ *
  * ****************************************
  * v1.0.1						30.04.2015
  * Can Berkol
