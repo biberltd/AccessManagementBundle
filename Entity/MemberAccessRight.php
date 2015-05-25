@@ -22,8 +22,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(
  *     name="member_access_right",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
- *     indexes={@ORM\Index(name="idx_n_member_access_right_date_assigned", columns={"date_assigned"})},
- *     uniqueConstraints={@ORM\UniqueConstraint(name="idx_u_member_access_right", columns={"member","action"})}
+ *     indexes={@ORM\Index(name="idxNMemberAccessRightDateAssigned", columns={"date_assigned"})},
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="idxUMemberAccessRight", columns={"member","action"})}
  * )
  * @ORM\Entity
  */

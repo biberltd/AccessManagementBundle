@@ -22,8 +22,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(
  *     name="member_group_access_right",
  *     options={"charset":"utf8","collate":"utf8_turkish_ci","engine":"innodb"},
- *     indexes={@ORM\Index(name="idx_n_member_group_access_right_date_assigned", columns={"date_assigned"})},
- *     uniqueConstraints={@ORM\UniqueConstraint(name="idx_u_member_group_access_right", columns={"member_group","action"})}
+ *     indexes={@ORM\Index(name="idxNMemberGroupAccessRightDateAssigned", columns={"date_assigned"})},
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="idxUMemberGroupAccessRight", columns={"member_group","action"})}
  * )
  */
 class MemberGroupAccessRight extends CoreEntity
