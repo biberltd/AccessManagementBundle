@@ -14,12 +14,12 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.1
- * @date        30.04.2015
+ * @version     1.0.2
+ * @date        26.05.2015
  *
  */
 
-namespace BiberLtd\Bundle\CoreBundle\Services;
+namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 use BiberLtd\Bundle\CoreBundle\Core as Core;
 
 class AccessValidator extends Core{
@@ -331,7 +331,13 @@ class AccessValidator extends Core{
 /**
  * Change Log
  * ****************************************
- * v1.0.1						30.04.2015
+ * v1.0.2						 26.05.2015
+ * Can Berkol
+ * ****************************************
+ * BF :: Namespace fixed.
+ *
+ * ****************************************
+ * v1.0.1						 30.04.2015
  * Can Berkol
  * ****************************************
  * FR :: Deprecated methods have been removed.
