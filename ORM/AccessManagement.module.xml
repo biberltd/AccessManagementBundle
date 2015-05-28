@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <skipper version="3.2.1.1222" mvc="Symfony2" orm="Doctrine2">
-  <module name="\\AccessManagementBundle" local-name="\AccessManagementBundle" namespace="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity" local-namespace="BiberLtd\Core\Bundles\AccessManagementBundle\Entity" export-format="Doctrine2Php" export-path="../Entity" uuid="5bc56f3a-99a8-4b7d-bb6e-8834f34759f4">
+  <module name="\\AccessManagementBundle" local-name="\AccessManagementBundle" namespace="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity" local-namespace="BiberLtd\Bundle\AccessManagementBundle\Entity" export-format="Doctrine2Php" export-path="../Entity" uuid="5bc56f3a-99a8-4b7d-bb6e-8834f34759f4">
     <entity name="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity\MemberGroupAccessRight" local-name="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity\MemberGroupAccessRight" namespace="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity" local-namespace="\BiberLtd\Core\Bundles\AccessManagementBundle\Entity" description="Handles access rights for member groups." uuid="162b086e-b1d5-4565-8983-d8cbce9e7ce3">
       <field name="member_group" description="Member group." type="integer" size="5" required="true" primary="true" uuid="cec22b63-4f6f-41e3-b778-fdd112ba535d"/>
       <field name="action" description="Action to be restricted." type="smallint" size="5" required="true" primary="true" uuid="90eb0c74-1887-4d94-9479-308537f15758"/>
