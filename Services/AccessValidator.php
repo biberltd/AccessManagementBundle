@@ -14,8 +14,8 @@
  *
  * @copyright   Biber Ltd. (www.biberltd.com)
  *
- * @version     1.0.2
- * @date        26.05.2015
+ * @version     1.0.3
+ * @date        04.06.2015
  *
  */
 
@@ -175,11 +175,11 @@ class AccessValidator extends Core{
      * @author          Can Berkol
      *
      * @since           1.0.0
-     * @version         1.0.0
+     * @version         1.0.3
      *
      * @param           array           $member_data        if not provided; will be read from session.
      * @param           array           $access_map         access map to process
-     * @debug           bool            $debug              if set to true debug messages will be outputted.
+     * @param           bool            $debug              if set to true debug messages will be outputted.
      *
      * @return          bool
      *
@@ -234,7 +234,7 @@ class AccessValidator extends Core{
             /**
              * Correct site?
              */
-            if(!in_array($this->kernel->getContainer()->getParameter('site_id'), $data['sites'])){
+            if(!in_array($this->kernel->getContainer()->get('session')->get('_currentSiteId'), $data['sites'])){
                 if($debug){
                     echo 'This controller is only for authenticated users that belong the current site.';
                 }
@@ -330,6 +330,12 @@ class AccessValidator extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.3						 04.06.2015
+ * Can Berkol
+ * ****************************************
+ * CR :: Site specific access validation is now comaptible with DomainListener of SiteManagementBundle.
+ *
  * ****************************************
  * v1.0.2						 26.05.2015
  * Can Berkol
