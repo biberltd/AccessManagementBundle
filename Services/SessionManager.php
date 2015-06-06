@@ -429,7 +429,7 @@ class SessionManager extends Core{
         $sessionExists = false;
 
         $session_id = $generatedSessionId = $this->session->getId();
-        $cookieSessionId = $this->get_detail('session_id');
+        $cookieSessionId = $this->getDetail('session_id');
         if($cookieSessionId != false){
             $cookieSessionExists = true;
             $session_id = $cookieSessionId;
@@ -456,13 +456,13 @@ class SessionManager extends Core{
         switch($log){
             case 'login':
 
-                $response = $memberModel->getMember($this->get_detail('id'), 'id');
+                $response = $memberModel->getMember($this->getDetail('id'), 'id');
                 if($response->error->exist){
                     return false;
                 }
                 $member = $response->result->set;
                 unset($response);
-                $sessionEntry->setUsername($this->get_detail('username'));
+                $sessionEntry->setUsername($this->getDetail('username'));
                 $sessionEntry->setMember($member);
                 $sessionEntry->setDateLogin($now);
                 break;
@@ -471,7 +471,7 @@ class SessionManager extends Core{
                 $sessionEntry->setDateLogout($now);
                 break;
         }
-        $sessionEntry->setData(json_encode($this->dump_details()));
+        $sessionEntry->setData(json_encode($this->dumpDetails()));
 
         $response = $logModel->updateSession($sessionEntry, 'entity');
 
