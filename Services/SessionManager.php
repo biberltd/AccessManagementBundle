@@ -7,8 +7,8 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.2
- * @date        25.05.2015
+ * @version     1.0.3
+ * @date        06.06.2015
  *
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
@@ -357,7 +357,7 @@ class SessionManager extends Core{
      *
      * @author          Can Berkol
      * @since           1.0.0
-     * @version         1.0.2
+     * @version         1.0.3
      *
      * @param           string      $action
      * @param           integer     $site
@@ -371,7 +371,7 @@ class SessionManager extends Core{
         $sessionExists = false;
 
         $session_id = $generatedSessionId = $this->session->getId();
-        $cookieSessionId = $this->get_detail('session_id');
+        $cookieSessionId = $this->getDetail('session_id');
         if($cookieSessionId != false){
             $cookieSessionExists = true;
             $session_id = $cookieSessionId;
@@ -485,19 +485,25 @@ class SessionManager extends Core{
 /**
  * Change Log
  * ****************************************
- * v1.0.2						25.05.2015
+ * v1.0.3						 06.06.2015
  * Can Berkol
  * ****************************************
- * BF :: ModelResponse usgage is fixed.
+ * BF :: Deprecated use of get_detail() is replaced with getDetail().
  *
  * ****************************************
- * v1.0.1						30.04.2015
+ * v1.0.2						 25.05.2015
+ * Can Berkol
+ * ****************************************
+ * BF :: ModelResponse usage is fixed.
+ *
+ * ****************************************
+ * v1.0.1						 30.04.2015
  * Can Berkol
  * ****************************************
  * FR :: Deprecated functions have been removed.
  *
  * ****************************************
- * v1.0.0						26.04.2015
+ * v1.0.0						 26.04.2015
  * TW #
  * Can Berkol
  * ****************************************
