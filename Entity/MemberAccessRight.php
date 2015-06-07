@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping AS ORM;
 class MemberAccessRight extends CoreEntity
 {
     /**
-     * @ORM\Column(type="string", length=1, nullable=false)
+     * @ORM\Column(type="string", length=1, nullable=false, options={"default":"g"})
      */
     private $right;
 
