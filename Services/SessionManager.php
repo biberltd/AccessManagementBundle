@@ -408,7 +408,7 @@ class SessionManager extends Core{
             'details'       => $details,
             'session'       => $sessionEntry,
         );
-        $logModel->insertLog($logEntryData);
+        $logModel->insertLog((object) $logEntryData);
         return true;
     }
     /**
