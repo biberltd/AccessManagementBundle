@@ -319,10 +319,10 @@ class SessionManager extends Core{
             $session_id = $cookieSessionId;
         }
         if($cookieSessionExists){
-            $response = $logModel->getSession($cookieSessionId, 'session_id');
+            $response = $logModel->getSession($cookieSessionId);
         }
         else{
-            $response = $logModel->getSession($generatedSessionId, 'session_id');
+            $response = $logModel->getSession($generatedSessionId);
         }
         if(!$response->error->exist){
             $sessionExists = true;
@@ -344,7 +344,7 @@ class SessionManager extends Core{
             'session_id'    => $session_id,
             'site'          => 1,   /** @todo multi site */
         );
-        $response = $logModel->insertSession($sessionEntryData);
+        $response = $logModel->insertSession((object)$sessionEntryData);
         if(!$response->error->exist){
             $insertedSession = $response->result->set[0];
             return $insertedSession;
@@ -377,10 +377,10 @@ class SessionManager extends Core{
             $session_id = $cookieSessionId;
         }
         if($cookieSessionExists){
-            $response = $logModel->getSession($cookieSessionId, 'session_id');
+            $response = $logModel->getSession($cookieSessionId);
         }
         else{
-            $response = $logModel->getSession($generatedSessionId, 'session_id');
+            $response = $logModel->getSession($generatedSessionId);
         }
         if(!$response->error->exist){
             $sessionExists = true;
@@ -435,10 +435,10 @@ class SessionManager extends Core{
             $session_id = $cookieSessionId;
         }
         if($cookieSessionExists){
-            $response = $logModel->getSession($cookieSessionId, 'session_id');
+            $response = $logModel->getSession($cookieSessionId);
         }
         else{
-            $response = $logModel->getSession($generatedSessionId, 'session_id');
+            $response = $logModel->getSession($generatedSessionId);
         }
         if(!$response->error->exist){
             $sessionExists = true;
@@ -455,7 +455,6 @@ class SessionManager extends Core{
 
         switch($log){
             case 'login':
-
                 $response = $memberModel->getMember($this->getDetail('id'), 'id');
                 if($response->error->exist){
                     return false;
