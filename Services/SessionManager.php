@@ -7,8 +7,8 @@
  *
  * @author		Can Berkol
  *
- * @version     1.0.3
- * @date        06.06.2015
+ * @version     1.0.4
+ * @date        11.06.2015
  *
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
@@ -351,6 +351,42 @@ class SessionManager extends Core{
         }
         return false;
     }
+	/**
+	 * @name            setDetail()
+	 *                  You can set only existing keys. To add a new key use addDetail()
+	 *                  The following keys cannot be changed during run-time:
+	 *                           id
+	 *                           sites
+	 *                           groups
+	 *                           granted_actions
+	 *                           revoked_actions
+	 *                           session_id
+	 *
+	 *
+	 * @author          Can Berkol
+	 * @since           1.0.4
+	 * @version         1.0.4
+	 *
+	 * @use				$this->dumpDetails()
+	 *
+	 * @param			string		$key
+	 * @param			mixed		$value
+	 *
+	 * @return          array
+	 */
+	public function setDetail($key, $value){
+		$current = $this->dumpDetails();
+
+		$notAllowed = array('id', 'sites', 'groups', 'granted_actions', 'revoked_actions', 'session_id');
+		if(in_array($key, $notAllowed)){
+			return false;
+		}
+		$current[$key] = $value;
+
+		$encrypted_data = $this->encrypt($current);
+		$this->session->set('authentication_data', $encrypted_data);
+		return true;
+	}
     /**
      * @name            logAction()
      *                  Logs a user action in database.
@@ -483,6 +519,12 @@ class SessionManager extends Core{
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.4						 11.06.2015
+ * Can Berkol
+ * ****************************************
+ * FR :: setDetail() implemented to manipulate some session data on run time.
+ *
  * ****************************************
  * v1.0.3						 06.06.2015
  * Can Berkol
