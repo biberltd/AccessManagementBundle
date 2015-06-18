@@ -92,7 +92,18 @@ class SessionManager extends Core{
                 $group_codes[] = $group->getCode();
             }
         }
-
+        /**
+         * Get member's sites.
+         */
+        $response = $MMModel->listSitesOfMember($member);
+        $siteIds = array();
+        $siteIds[] = $member->getSite()->getId();
+        if(!$response->error->exist){
+            $sites = $response->result->set;
+            foreach($sites as $site){
+                $siteIds[] = $site->getId();
+            }
+        }
         $grantedActions = array();
         $response = $AMModel->listGrantedActionsOfMember($member->getId());
         if(!$response->error->exist){
@@ -139,8 +150,7 @@ class SessionManager extends Core{
             'date_last_login'    => $member->getDateLastLogin(),
             'site'          => $member->getSite()->getId(),
             'file_avatar'   => $member->getFileAvatar(),
-            // @todo 'sites'         => $member->dump_sites(),
-            'sites'         => array(1),
+            'sites'         => $siteIds,
             'groups'        => $group_codes,
             'granted_actions'=> $grantedActions,
             'revoked_actions'=> $revokedActions,
