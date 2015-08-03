@@ -423,6 +423,19 @@ class SessionManager extends Core
     }
 
     /**
+     * @name setId()
+     *
+     * @since 1.0.5
+     * @version 1.0.5
+     *
+     * @param $sessionId
+     * @return mixed
+     */
+    public function setId($sessionId){
+        return $this->session->setId($sessionId);
+    }
+
+    /**
      * @name            logAction ()
      *                  Logs a user action in database.
      *
@@ -555,6 +568,11 @@ class SessionManager extends Core
 }
 /**
  * Change Log
+ * ****************************************
+ * v1.0.5                         09.07.2015
+ * Said İmamoğlu
+ * ****************************************
+ * FR :: setId() implemented to resume session on run time.
  * ****************************************
  * v1.0.4                         11.06.2015
  * Can Berkol
