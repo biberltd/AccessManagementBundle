@@ -1,17 +1,12 @@
 <?php
 /**
- * @name        MemberGroupAccessRight
- * @package		BiberLtd\Bundle\CoreBundle\AccessManagementBundle
- *
+ * @author		Can Berkol
  * @author		Murat Ünal
- * @version     1.0.2
- * @date        09.10.2013
  *
- * @copyright   Biber Ltd. (http://www.biberltd.com)
- * @license     GPL v3.0
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @description Model / Entity class.
- *
+ * @date        10.12.2015
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Entity;
 use BiberLtd\Bundle\CoreBundle\CoreEntity;
@@ -188,19 +183,3 @@ class MemberGroupAccessRight extends CoreEntity
         return $this->member_group;
     }
 }
-/**
- * Change Log:
- * **************************************
- * v1.0.1                      Murat Ünal
- * 18.07.2013
- * **************************************
- * A getAction()
- * A getDateAssigned()
- * A getMemberGroup()
- * A getRight()
- *
- * A setAction()
- * A setDateAssigned()
- * A setMemberGroup()
- * A setRight()
- */

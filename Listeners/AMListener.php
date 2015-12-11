@@ -1,15 +1,11 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package		AccessManagementBundle
- * @subpackage	Services
- * @name	    AMListener
- *
  * @author		Can Berkol
  *
- * @version     1.0.0
- * @date        26.04.2015
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
+ * @date        10.12.2015
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Listeners;
 
@@ -27,49 +23,28 @@ class AMListener extends Core{
     protected     $session;
     /** @var $cookie                Current session's cookie if set. */
     protected     $cookie;
+
     /**
-     * @name            __construct()
-     *                  Constructor.
+     * AMListener constructor.
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           Kernel          $kernel
-     *
+     * @param $kernel
      */
     public function __construct($kernel){
         parent::__construct($kernel);
         $this->session = $this->kernel->getContainer()->get('session');
         $this->cookie = $this->kernel->getContainer()->get('request')->cookies;
     }
-    /**
-     * @name            __destruct()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
+    /*
+     * Destructor
      */
     public function __destruct(){
         foreach($this as $property => $value) {
             $this->$property = null;
         }
     }
+
     /**
-     * @name 			onKernelRequest()
-     *  				Called onKernelRequest event and login detection.
-     *
-     * @author          Can Berkol
-     *
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @param 			GetResponseEvent 	        $e
-     *
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $e
      */
     public function onKernelRequest(\Symfony\Component\HttpKernel\Event\GetResponseEvent $e){
         $request = $e->getRequest();
@@ -111,26 +86,3 @@ class AMListener extends Core{
         return;
     }
 }
-/**
- * Change Log
- * **************************************
- * v1.3.1                      Can Berkol
- * 11.01.2014
- * **************************************
- * B onKernelRequest() session control bug fixed.
- *
- * **************************************
- * v1.3.0                      Can Berkol
- * 03.08.2013
- * **************************************
- * B __destruct() foreach loop bug fixed.
- * U __construct() now uses database to get a list of languages.
- *
- * **************************************
- * v1.0.0                      Can Berkol
- * 03.08.2013
- * **************************************
- * A __construct()
- * A __destruct()
- * A onKernelRequest()
- */

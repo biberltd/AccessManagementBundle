@@ -1,15 +1,12 @@
 <?php
 /**
- * @vendor      BiberLtd
- * @package        AccessManagementBundle
- * @subpackage    Services
- * @name        SessionManager
+ * @author		Can Berkol
+ * @author		Said İmamoğlu
  *
- * @author        Can Berkol
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.0.4
- * @date        11.06.2015
- *
+ * @date        11.12.2015
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 
@@ -57,23 +54,16 @@ class SessionManager extends Core
     }
 
     /**
-     * @name            authenticate ()
-     *                  Authenticates a user and sets session.
+     * @param string $username
+     * @param string $password
      *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @param           string $username
-     * @param           string $password
-     *
-     * @return          bool
+     * @return bool
      */
-    public function authenticate($username, $password)
+    public function authenticate(\string $username, \string $password)
     {
         $MMModel = new MMBService\MemberManagementModel($this->kernel, 'default', 'doctrine');
         $AMModel = new AMBService\AccessManagementModel($this->kernel, 'default', 'doctrine');
-        /** Validate account */
+
         $response = $MMModel->validateAccount($username, $password);
 
         if ($response->error->exist) {
@@ -114,6 +104,9 @@ class SessionManager extends Core
                 }
             }
         }
+	    /**
+	     * Which actions are granted?
+	     */
         $grantedActions = array();
         $response = $AMModel->listGrantedActionsOfMember($member->getId());
         if (!$response->error->exist) {
@@ -129,6 +122,10 @@ class SessionManager extends Core
                 }
             }
         }
+
+	    /**
+	     * Which actions are revooked?
+	     */
         $revokedActions = array();
         $response = $AMModel->listRevokedActionsOfMember($member->getId());
         if (!$response->error->exist) {
@@ -147,7 +144,7 @@ class SessionManager extends Core
         /**
          * Prepare user details to be stored in $session
          */
-        $member_details = array(
+        $memberDetails = array(
             'id' => $member->getId(),
             'username' => $member->getUsername(),
             'locale' => $member->getLanguage()->getIsoCode(),
@@ -166,27 +163,19 @@ class SessionManager extends Core
             'revoked_actions' => $revokedActions,
             'session_id' => $this->session->getId(),
         );
-        $encrypted_data = $this->encrypt($member_details);
+        $encryptedData = $this->encrypt($memberDetails);
         $this->session->set('is_logged_in', true);
         $this->session->set('login_type', 'manuel');
-        $this->session->set('authentication_data', $encrypted_data);
+        $this->session->set('authentication_data', $encryptedData);
         return true;
     }
 
-    /**
-     * @name            encrypt ()
-     *                  Prepares the given data to store with session.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           mixed $data
-     *
-     * @return          string
-     */
-    private function encrypt($data)
-    {
+	/**
+	 * @param  mixed $data
+	 *
+	 * @return string
+	 */
+    private function encrypt($data){
         if (is_null($data) || !$data) {
             return '';
         }
@@ -197,20 +186,12 @@ class SessionManager extends Core
         return $hashed_data;
     }
 
-    /**
-     * @name            decrypt ()
-     *                  Decrypts the session data and returns an array.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           Session $hashed_data
-     *
-     * @return          array           $data
-     */
-    public function decrypt($hashed_data)
-    {
+	/**
+	 * @param $hashed_data
+	 *
+	 * @return array|mixed
+	 */
+    public function decrypt($hashed_data){
         if (is_null($hashed_data) || !$hashed_data) {
             return array();
         }
@@ -220,16 +201,9 @@ class SessionManager extends Core
         return $data;
     }
 
-    /**
-     * @name            logout ()
-     *                  Logouts a session.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          true
-     */
+	/**
+	 * @return bool
+	 */
     public function logout()
     {
         $this->session->invalidate();
@@ -238,19 +212,12 @@ class SessionManager extends Core
         return true;
     }
 
-    /**
-     * @name            addDetail ()
-     *                  Adds authentication detail.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           string $key
-     * @param           mixed $value
-     *
-     * @return          true
-     */
+	/**
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return bool
+	 */
     public function addDetail($key, $value)
     {
         $current = $this->session->get('authentication_data');
@@ -266,18 +233,11 @@ class SessionManager extends Core
         return true;
     }
 
-    /**
-     * @name            getDetail ()
-     *                  Gets authentication detail.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           $key            string
-     *
-     * @return          mixed
-     */
+	/**
+	 * @param $key
+	 *
+	 * @return bool
+	 */
     public function getDetail($key)
     {
         $current = $this->session->get('authentication_data');
@@ -289,31 +249,16 @@ class SessionManager extends Core
         return false;
     }
 
-    /**
-     * @name            getId ()
-     *                  Returns server session id
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          string
-     */
+	/**
+	 * @return mixed
+	 */
     public function getId()
     {
         return $this->session->getId();
     }
 
-    /**
-     * @name            dumpDetails ()
-     *                  Gets all authentication details.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     *
-     * @return          array
+	/**
+	 * return          array
      */
     public function dumpDetails()
     {
@@ -324,16 +269,9 @@ class SessionManager extends Core
         return $current;
     }
 
-    /**
-     * @name            register ()
-     *                  Registers a session into database.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @return          mixed                   bool or Session entity.
-     */
+	/**
+	 * @return bool
+	 */
     public function register()
     {
         $logModel = $this->kernel->getContainer()->get('logbundle.model');
@@ -384,30 +322,13 @@ class SessionManager extends Core
         return false;
     }
 
-    /**
-     * @name            setDetail ()
-     *                  You can set only existing keys. To add a new key use addDetail()
-     *                  The following keys cannot be changed during run-time:
-     *                           id
-     *                           sites
-     *                           groups
-     *                           granted_actions
-     *                           revoked_actions
-     *                           session_id
-     *
-     *
-     * @author          Can Berkol
-     * @since           1.0.4
-     * @version         1.0.4
-     *
-     * @use                $this->dumpDetails()
-     *
-     * @param            string $key
-     * @param            mixed $value
-     *
-     * @return          array
-     */
-    public function setDetail($key, $value)
+	/**
+	 * @param string $key
+	 * @param mixed  $value
+	 *
+	 * @return bool
+	 */
+    public function setDetail(\string $key, $value)
     {
         $current = $this->dumpDetails();
 
@@ -422,33 +343,22 @@ class SessionManager extends Core
         return true;
     }
 
-    /**
-     * @name setId()
-     *
-     * @since 1.0.5
-     * @version 1.0.5
-     *
-     * @param $sessionId
-     * @return mixed
-     */
-    public function setId($sessionId){
+	/**
+	 * @param string $sessionId
+	 *
+	 * @return mixed
+	 */
+    public function setId(\string $sessionId){
         return $this->session->setId($sessionId);
     }
 
-    /**
-     * @name            logAction ()
-     *                  Logs a user action in database.
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.3
-     *
-     * @param           string $action
-     * @param           integer $site
-     * @param           array $extra
-     *
-     * @return          bool
-     */
+	/**
+	 * @param       $action
+	 * @param int   $site
+	 * @param array $extra
+	 *
+	 * @return bool
+	 */
     public function logAction($action, $site = 1, $extra = array())
     {
         $logModel = $this->kernel->getContainer()->get('logbundle.model');
@@ -496,18 +406,12 @@ class SessionManager extends Core
         return true;
     }
 
-    /**
-     * @name            update ()
-     *                  Updates a session
-     *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @param           string $log login, logout
-     * @return          mixed                   bool or Session entity.
-     */
-    public function update($log = 'login')
+	/**
+	 * @param string $log
+	 *
+	 * @return bool
+	 */
+    public function update(\string $log = 'login')
     {
         $logModel = $this->kernel->getContainer()->get('logbundle.model');
         $memberModel = $this->kernel->getContainer()->get('membermanagement.model');
@@ -566,41 +470,3 @@ class SessionManager extends Core
         return false;
     }
 }
-/**
- * Change Log
- * ****************************************
- * v1.0.5                         09.07.2015
- * Said İmamoğlu
- * ****************************************
- * FR :: setId() implemented to resume session on run time.
- * ****************************************
- * v1.0.4                         11.06.2015
- * Can Berkol
- * ****************************************
- * FR :: setDetail() implemented to manipulate some session data on run time.
- *
- * ****************************************
- * v1.0.3                         06.06.2015
- * Can Berkol
- * ****************************************
- * BF :: Deprecated use of get_detail() is replaced with getDetail().
- *
- * ****************************************
- * v1.0.2                         25.05.2015
- * Can Berkol
- * ****************************************
- * BF :: ModelResponse usage is fixed.
- *
- * ****************************************
- * v1.0.1                         30.04.2015
- * Can Berkol
- * ****************************************
- * FR :: Deprecated functions have been removed.
- *
- * ****************************************
- * v1.0.0                         26.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Class moved to AccessManagementBundle from CoreBundle.
- */

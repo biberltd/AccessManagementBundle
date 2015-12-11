@@ -1,41 +1,26 @@
 <?php
 /**
- * Access Validator Class
+ * @author		Can Berkol
+ * @author		Said İmamoğlu
+ *
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
+ *
+ * @date        11.12.2015
  *
  * This class provides mechanism to validate user access based on groups an access management rights
  * stored in database.
- *
- * @vendor      BiberLtd
- * @package		Core
- * @subpackage	Services
- * @name	    AccessValidator
- *
- * @author		Can Berkol
- *
- * @copyright   Biber Ltd. (www.biberltd.com)
- *
- * @version     1.0.3
- * @date        04.06.2015
- *
  */
-
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 use BiberLtd\Bundle\CoreBundle\Core as Core;
 
 class AccessValidator extends Core{
-
     private $session;
 
     /**
-     * @name            __construct()
-     *                  Constructor.
+     * AccessValidator constructor.
      *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.2
-     *
-     * @param           object          $kernel
-     *
+     * @param $kernel
      */
     public function __construct($kernel){
         parent::__construct($kernel);
@@ -43,38 +28,23 @@ class AccessValidator extends Core{
 
         /** ************************************** */
     }
+
     /**
-     * @name            __destruct()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.2.0
-     *
-     *
+     * Destructor
      */
     public function __destruct(){
         foreach($this as $key => $value) {
             $this->$key = null;
         }
     }
+
     /**
-     * @name            isActionGranted()
-     *                  Checks if a particular action is granted for current session's member.
+     * @param string $actionCode
+     * @param null   $memberData
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           string          $actionCode
-     * @param           array           $memberData
-     *
-     * @return          bool
-     *
+     * @return bool
      */
-    public function isActionGranted($actionCode, $memberData = null){
+    public function isActionGranted(\string $actionCode, $memberData = null){
         $data = $memberData;
         if(is_null($data)){
             $data = $this->decryptSessionData();
@@ -87,22 +57,14 @@ class AccessValidator extends Core{
         }
         return false;
     }
+
     /**
-     * @name            isActionRevoked()
-     *                  Checks if a particular action is revoked for current session's member.
+     * @param string $actionCode
+     * @param null   $memberData
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           string          $actionCode
-     * @param           array           $memberData
-     *
-     * @return          bool
-     *
+     * @return bool
      */
-    public function isActionRevoked($actionCode, $memberData = null){
+    public function isActionRevoked(\string $actionCode, $memberData = null){
         $data = $memberData;
         if(is_null($data)){
             $data = $this->decryptSessionData();
@@ -117,16 +79,9 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @name            isGuest()
-     *                  Checks if a given member is guest.
+     * @param null $member_data
      *
-     * @author          Can Berkol
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           array           $member_data     if not provided; will be read from session.
-     *
-     * @return          bool
+     * @return bool
      */
     public function isGuest($member_data = null){
         if($this->session->get('is_logged_in')){
@@ -143,17 +98,9 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @name            isAuthenticated()
-     *                  Checks if a given member is guest.
+     * @param null $member_data
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @param           array           $member_data     if not provided; will be read from session.
-     *
-     * @return          bool
+     * @return bool
      */
     public function isAuthenticated($member_data = null){
         $data = $member_data;
@@ -169,29 +116,11 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @name            hasAccess()
-     *                  Checks if a given member is guest.
+     * @param null  $member_data
+     * @param array $access_map
+     * @param bool  $debug
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.3
-     *
-     * @param           array           $member_data        if not provided; will be read from session.
-     * @param           array           $access_map         access map to process
-     * @param           bool            $debug              if set to true debug messages will be outputted.
-     *
-     * @return          bool
-     *
-     * ACCESS MAP
-     *      'unmanaged' => true | false
-     *      'quest'  => true | false
-     *      'authenticated' => true | false
-     *      'members' => member ids
-     *      'groups' => group codes
-     *      'status' => a | i | b (a=> active, i=> inactive, b=> banned
-     *
-     * @todo access control sıralamasının üstünden geç
+     * @return bool
      */
     public function hasAccess($member_data = null, $access_map = array(), $debug = false){
         $data = $member_data;
@@ -291,16 +220,9 @@ class AccessValidator extends Core{
             return false;
         }
     }
+
     /**
-     * @name            decryptSessionData()
-     *                  Decrypts the session data.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
-     * @return          array       $data
+     * @return array|mixed
      */
     private function decryptSessionData(){
         $session_data = $this->kernel->getContainer()->get('session')->get('authentication_data');
@@ -328,30 +250,3 @@ class AccessValidator extends Core{
         return $data;
     }
 }
-/**
- * Change Log
- * ****************************************
- * v1.0.3						 04.06.2015
- * Can Berkol
- * ****************************************
- * CR :: Site specific access validation is now comaptible with DomainListener of SiteManagementBundle.
- *
- * ****************************************
- * v1.0.2						 26.05.2015
- * Can Berkol
- * ****************************************
- * BF :: Namespace fixed.
- *
- * ****************************************
- * v1.0.1						 30.04.2015
- * Can Berkol
- * ****************************************
- * FR :: Deprecated methods have been removed.
- *
- * ****************************************
- * v1.0.0						26.04.2015
- * TW #
- * Can Berkol
- * ****************************************
- * - Class moved to AccessManagementBundle from CoreBundle.
- */

@@ -1,34 +1,25 @@
 <?php
 /**
- * AccessManagementModel Class
- *
- * This class acts as a database proxy model for AccessManagementBundle functionalities..
- *
- * @vendor      BiberLtd
- * @package		Core\Bundles\AccessManagementBundle
- * @subpackage	Services
- * @name	    AccessManagementModel
- *
  * @author		Can Berkol
- * @author      Said İmamoğlu
+ * @author		Said İmamoğlu
  *
- * @copyright   Biber Ltd. (www.biberltd.com)
+ * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
+ * @license     GPLv3
  *
- * @version     1.1.2
- * @date        08.06.2015
+ * @date        11.12.2015
+ *
  */
-
 namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 
-/** Entities to be used */
+
 use BiberLtd\Bundle\AccessManagementBundle\Entity as BundleEntity;
 use BiberLtd\Bundle\CoreBundle\Responses\ModelResponse;
 use BiberLtd\Bundle\LogBundle\Entity as LBEntity;
 use BiberLtd\Bundle\MemberManagementBundle\Entity as MMBEntity;
-/** Models to be loaded */
+
 use BiberLtd\Bundle\LogBundle\Services as LBService;
 use BiberLtd\Bundle\MemberManagementBundle\Services as MMBService;
-/** Core Service */
+
 use BiberLtd\Bundle\CoreBundle\CoreModel;
 use BiberLtd\Bundle\CoreBundle\Services as CoreServices;
 use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
@@ -36,17 +27,11 @@ use BiberLtd\Bundle\CoreBundle\Exceptions as CoreExceptions;
 class AccessManagementModel extends CoreModel {
 
     /**
-     * @name            __construct()
-     *                  Constructor.
+     * AccessManagementModel constructor.
      *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.1.2
-     *
-     * @param           object          $kernel
-     * @param           string          $dbConnection  Database connection key as set in app/config.yml
-     * @param           string          $orm            ORM that is used.
+     * @param object $kernel
+     * @param string $dbConnection
+     * @param string $orm
      */
     public function __construct($kernel, $dbConnection = 'default', $orm = 'doctrine') {
         parent::__construct($kernel, $dbConnection, $orm);
@@ -58,42 +43,26 @@ class AccessManagementModel extends CoreModel {
             'mgar' => array('name' => 'AccessManagementBundle:MemberGroupAccessRight', 'alias' => 'mgar'),
         );
     }
+
     /**
-     * @name            __destruct()
-     *                  Destructor.
-     *
-     * @author          Can Berkol
-     *
-     * @since           1.0.0
-     * @version         1.0.0
-     *
+     * Destructor
      */
     public function __destruct() {
         foreach ($this as $property => $value) {
             $this->$property = null;
         }
     }
+
     /**
-     * @name 			grantRightToMember()
-     *  				Grants access right for action to a specific member.
-     *                  In short, inserts an entry to the database table.
+     * @param $member
+     * @param $action
      *
-     *                  In response:
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
+     *
+     * In response:
      *                  Returns true if the action right is set to g or false if the action right is not set or set to r
      *                  g: granted
      *                  r: revoked
-     *
-     * @since			1.0.0
-     * @version         1.1.2
-     * @author          Can Berkol
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->validateAndGetMember()
-     *
-     * @param           mixed           $member     Member Entity or member group id.
-     * @param           mixed           $action     Action Entity or action id.
-     *
-     * @return          mixed           $response
      */
     public function grantRightToMember($member, $action) {
         $timeStamp = time();
@@ -122,26 +91,17 @@ class AccessManagementModel extends CoreModel {
         return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, time());
 
     }
+
     /**
-     * @name 			grantRightToMemberGroup()
-     *  				Grants access right for action to a specific member.
-     *                  In short, inserts an entry to the database table.
+     * @param $group
+     * @param $action
      *
-     *                  In response:
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
+     *
+     * In response:
      *                  Returns true if the action right is set to g or false if the action right is not set or set to r
      *                  g: granted
      *                  r: revoked
-     *
-     * @since			1.0.0
-     * @version         1.1.2
-     * @author          Can Berkol
-     *
-     * @use             $this->resetResponse()
-     *
-     * @param           mixed           $group      Member Group Entity or member group id.
-     * @param           mixed           $action     Action Entity or action id.
-     *
-     * @return          mixed           $response
      */
     public function grantRightToMemberGroup($group, $action) {
         $timeStamp = time();
@@ -170,29 +130,13 @@ class AccessManagementModel extends CoreModel {
 
         return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, time());
     }
+
     /**
-     * @name 			isMemberGrantedAction()
-     *  				Checks if the member has access rights for given action.
+     * @param      $member
+     * @param      $action
+     * @param bool $bypass
      *
-     *                  In response:
-     *                  Returns true if the action right is set to g or false if the action right is not set or set to r
-     *                  g: granted
-     *                  r: revoked
-     *
-     * @since			1.0.0
-     * @version         1.1.2
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     * @use             $this->resetResponse()
-     * @use             $this->validateAndGetAction()
-     * @use             $this->validateAndGetMember()
-     *
-     * @param           mixed           $member     Member Entity or member group id.
-     * @param           mixed           $action     Action Entity or action id.
-     * @param           bool            $bypass     If set to true, the function does return result set directly.
-     *
-     * @return          mixed           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool|mixed
      */
     public function isMemberGrantedAction($member, $action, $bypass = false) {
         $timeStamp = time();
@@ -240,29 +184,13 @@ class AccessManagementModel extends CoreModel {
         }
         return true;
     }
+
     /**
-     * @name 			isMemberGroupGrantedAction()
-     *  				Checks if the member group has access rights for given action.
+     * @param      $group
+     * @param      $action
+     * @param bool $bypass
      *
-     *                  In response:
-     *                  Returns true if the action right is set to g or false if the action right is not set or set to r
-     *                  g: granted
-     *                  r: revoked
-     *
-     * @since			1.0.0
-     * @version         1.1.2
-     * @author          Can Berkol
-     *
-     * @use             $this->createException()
-     * @use             $this->resetResponse()
-     * @use             $this->validateAndGetMemberGroup()
-     * @use             $this->validateAndGetAction()
-     *
-     * @param           mixed           $group      MemberGroup Entity or member group id.
-     * @param           mixed           $action     Action Entity or action id.
-     * @param           bool            $bypass     If set to true, the function does return result set directly.
-     *
-     * @return          mixed           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool
      */
     public function isMemberGroupGrantedAction($group, $action, $bypass = false) {
         $timeStamp = time();
@@ -323,23 +251,11 @@ class AccessManagementModel extends CoreModel {
         }
         return true;
     }
+
     /**
-     * @name            listGrantedActionsOfMember()
-     *                  List all actions with grant right g for given member
+     * @param $member
      *
-     * @since		    1.0.5
-     * @version         1.1.2
-     *
-     * @author          Can Berkol
-     * @author          Said Imamoglu
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $member         integer / id, or Member entity.
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listGrantedActionsOfMember($member){
         $timeStamp = time();
@@ -371,22 +287,11 @@ class AccessManagementModel extends CoreModel {
         }
         return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
+
     /**
-     * @name            listGrantedActionsOfMemberGroup()
+     * @param $group
      *
-     * @since		    1.0.5
-     * @version         1.1.2
-     *
-     * @author          Can Berkol
-     * @author          Said Imamoglu
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $group         integer / id, or Member entity.
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listGrantedActionsOfMemberGroup($group){
         $timeStamp = time();
@@ -419,27 +324,11 @@ class AccessManagementModel extends CoreModel {
     }
 
     /**
-     * @name            listMemberAccessRights()
-     *                  List items of a given collection.
+     * @param null $filter
+     * @param null $sortOrder
+     * @param null $limit
      *
-     * @since		    1.0.0
-     * @version         1.0.5
-     *
-     * @author          Can Berkol
-     * @author          Said Imamoglu
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $filter                Multi dimensional array
-     * @param           array           $sortOrder              Array
-     *                                                              'column'    => 'asc|desc'
-     * @param           array           $limit
-     *                                      start
-     *                                      count
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
      */
     public function listMemberAccessRights($filter = null, $sortOrder = null, $limit = null){
         $timeStamp = time();
@@ -488,27 +377,11 @@ class AccessManagementModel extends CoreModel {
     }
 
     /**
-     * @name            listMemberGroupAccessRights()
-     *                  List items of a given collection.
+     * @param null $filter
+     * @param null $sortOrder
+     * @param null $limit
      *
-     * @since		    1.0.0
-     * @version         1.0.5
-     *
-     * @author          Can Berkol
-     * @author          Said Imamoglu
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $filter                Multi dimensional array
-     * @param           array           $sortOrder              Array
-     *                                                              'column'    => 'asc|desc'
-     * @param           array           $limit
-     *                                      start
-     *                                      count
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
      */
     public function listMemberGroupAccessRights($filter = null, $sortOrder = null, $limit = null){
         $timeStamp = time();
@@ -558,21 +431,11 @@ class AccessManagementModel extends CoreModel {
         }
         return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
+
     /**
-     * @name            listRevokedActionsOfMember()
+     * @param $member
      *
-     * @since		    1.0.8
-     * @version         1.0.8
-     *
-     * @author          Can Berkol
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $member         integer / id, or Member entity.
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listRevokedActionsOfMember($member){
         $timeStamp = time();
@@ -605,22 +468,11 @@ class AccessManagementModel extends CoreModel {
 
         return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
+
     /**
-     * @name            listRevokedActionsOfMemberGroup()
-     *                  List all actions with grant right g for given member
+     * @param $group
      *
-     * @since		    1.0.8
-     * @version         1.0.8
-     *
-     * @author          Can Berkol
-     *
-     * @use             $this->resetResponse()
-     * @use             $this->createException()
-     *
-     *
-     * @param           mixed           $group         integer / id, or Member entity.
-     *
-     * @return          array           $response
+     * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listRevokedActionsOfMemberGroup($group){
         $timeStamp = time();
@@ -652,85 +504,3 @@ class AccessManagementModel extends CoreModel {
         return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, time());
     }
 }
-
-/**
- * Change Log
- * **************************************
- * v1.1.2                      08.06.2015
- * Can Berkol
- * **************************************
- * BF :: resetResponse() removed.
- * BF :: Now ModelResponse is being utilized.
- *
- * **************************************
- * v1.1.1                      25.05.2015
- * Can Berkol
- * **************************************
- * BF :: db_connection is replaced with dbConnection
- *
- * **************************************
- * v1.1.0                      Can Berkol
- * 09.07.2014
- * **************************************
- * U validateAndGetAction()
- * U validateAdGetMemberGroup()
- *
- * **************************************
- * v1.0.9                      Can Berkol
- * 06.07.2014
- * **************************************
- * A validateAndGetAction()
- * A validateAndGetMember()
- * A validateAndGetMemberGroup()
- * U grantRightToMember()
- * U grantRightToMemberGroup()
- *
- * **************************************
- * v1.0.8                      Can Berkol
- * 04.06.2014
- * **************************************
- * U listRevokedActionsOfMember()
- * U listRevokedActionsOfMemberGroup()
- *
- * **************************************
- * v1.0.7                      Can Berkol
- * 29.04.2014
- * **************************************
- * U listGrantedActionsOfMember()
- * U listGrantedActionsOfMemberGroup()
- *
- * **************************************
- * v1.0.6                      Can Berkol
- * 24.04.2014
- * **************************************
- * U listGrantedActionsOfMember()
- * U listGrantedActionsOfMemberGroup()
- *
- * **************************************
- * v1.0.5                     Can Berkol
- * 23.04.2014
- * **************************************
- * Rewrite from scratch!!!!
- *
- * **************************************
- * v1.0.4                      Can Berkol
- * 16.11.2013
- * **************************************
- * A isMemberGrantedAction()
- * M Now extends CoreModel
- * M Methods are now camelCase
- *
- * **************************************
- * v1.0.3                      Can Berkol
- * 06.11.2013
- * **************************************
- * M Response error messages updated.
- *
- * **************************************
- * v1.0.0                      Can Berkol
- * 02.08.2013
- * **************************************
- * A __construct()
- * A __destruct()
- * A is_member_group_granted_action()
- */
