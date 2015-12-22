@@ -5,7 +5,7 @@
  * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
  * @license     GPLv3
  *
- * @date        1112.2015
+ * @date        11.12.2015
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\DependencyInjection;
 

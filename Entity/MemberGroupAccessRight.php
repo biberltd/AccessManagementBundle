@@ -25,11 +25,13 @@ class MemberGroupAccessRight extends CoreEntity
 {
     /**
      * @ORM\Column(type="string", length=1, nullable=false)
+     * @var string
      */
     private $right;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     * @var \DateTime
      */
     private $date_assigned;
 
@@ -37,6 +39,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\LogBundle\Entity\Action")
      * @ORM\JoinColumn(name="action", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @var \BiberLtd\Bundle\LogBundle\Entity\Action
      */
     private $action;
 
@@ -44,6 +47,7 @@ class MemberGroupAccessRight extends CoreEntity
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup")
      * @ORM\JoinColumn(name="member_group", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @var \BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup
      */
     private $member_group;
     /******************************************************************
@@ -51,18 +55,11 @@ class MemberGroupAccessRight extends CoreEntity
      ******************************************************************/
 
     /**
-     * @name            setRight()
-     *  				Sets $right property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param string $right
      *
-     * @param           string          $right
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setRight($right){
+    public function setRight(\string $right){
         if(!$this->setModified('right', $right)->isModified()){
             return $this;
         }
@@ -70,32 +67,20 @@ class MemberGroupAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getRight()
-     *  				Gets $right property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          string          $this->right
+     * @return string
      */
     public function getRight(){
         return $this->right;
     }
+
     /**
-     * @name            setDateAssigned()
-     *  				Sets $date_assigned property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \DateTime $date_assigned
      *
-     * @param           datetime          $date_assigned
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setDateAssigned($date_assigned){
+    public function setDateAssigned(\DateTime $date_assigned){
         if(!$this->setModified('date_assigned', $date_assigned)->isModified()){
             return $this;
         }
@@ -103,32 +88,20 @@ class MemberGroupAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getDateAssigned()
-     *  				Gets $date_assigned property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          datetime          $this->date_assigned
+     * @return \DateTime
      */
     public function getDateAssigned(){
         return $this->date_assigned;
     }
+
     /**
-     * @name            setAction()
-     *  				Sets $action property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \BiberLtd\Bundle\LogBundle\Entity\Action $action
      *
-     * @param           BiberLtd\Bundle\LogBundle\Entity\Action          $action
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setAction($action){
+    public function setAction(\BiberLtd\Bundle\LogBundle\Entity\Action $action){
         if(!$this->setModified('action', $action)->isModified()){
             return $this;
         }
@@ -136,32 +109,20 @@ class MemberGroupAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getAction()
-     *  				Gets $action property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          BiberLtd\Bundle\LogBundle\Entity\Action          $this->action
+     * @return \BiberLtd\Bundle\LogBundle\Entity\Action
      */
     public function getAction(){
         return $this->action;
     }
+
     /**
-     * @name            setMember_group()
-     *  				Sets $member_group property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup $member_group
      *
-     * @param           BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup          $member_group
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setMemberGroup($member_group){
+    public function setMemberGroup(\BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup $member_group){
         if(!$this->setModified('member_group', $member_group)->isModified()){
             return $this;
         }
@@ -169,15 +130,9 @@ class MemberGroupAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getMemberGroup()
-     *  				Gets $member_group property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup          $this->member_group
+     * @return \BiberLtd\Bundle\MemberManagementBundle\Entity\MemberGroup
      */
     public function getMemberGroup(){
         return $this->member_group;

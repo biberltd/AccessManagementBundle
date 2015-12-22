@@ -26,11 +26,13 @@ class MemberAccessRight extends CoreEntity
 {
     /**
      * @ORM\Column(type="string", length=1, nullable=false, options={"default":"g"})
+     * @var \string
      */
     private $right;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
+     * @var \DateTime
      */
     private $date_assigned;
 
@@ -38,6 +40,7 @@ class MemberAccessRight extends CoreEntity
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\LogBundle\Entity\Action")
      * @ORM\JoinColumn(name="action", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @var \BiberLtd\Bundle\LogBundle\Entity\Action
      */
     private $action;
 
@@ -45,25 +48,16 @@ class MemberAccessRight extends CoreEntity
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="BiberLtd\Bundle\MemberManagementBundle\Entity\Member")
      * @ORM\JoinColumn(name="member", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @var \BiberLtd\Bundle\MemberManagementBundle\Entity\Member
      */
     private $member;
-    /******************************************************************
-     * PUBLIC SET AND GET FUNCTIONS                                   *
-     ******************************************************************/
 
     /**
-     * @name            setRight()
-     *  				Sets $right property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param string $right
      *
-     * @param           string          $right
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setRight($right){
+    public function setRight(\string $right){
         if(!$this->setModified('right', $right)->isModified()){
             return $this;
         }
@@ -71,32 +65,20 @@ class MemberAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getRight(()
-     *  				Gets $right property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          string          $this->right
+     * @return string
      */
     public function getRight(){
         return $this->right;
     }
+
     /**
-     * @name            setDateAssigned()
-     *  				Sets $date_assigned property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \DateTime $date_assigned
      *
-     * @param           \DateTime       $date_assigned
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setDateAssigned($date_assigned){
+    public function setDateAssigned(\DateTime $date_assigned){
         if(!$this->setModified('date_assigned', $date_assigned)->isModified()){
             return $this;
         }
@@ -104,32 +86,20 @@ class MemberAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getDateAssigned()
-     *  				Gets $date_assigned property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          datetime          $this->date_assigned
+     * @return \DateTime
      */
     public function getDateAssigned(){
         return $this->date_assigned;
     }
+
     /**
-     * @name            setAction()
-     *  				Sets $action property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \BiberLtd\Bundle\LogBundle\Entity\Action $action
      *
-     * @param           BiberLtd\Bundle\LogBundle\Entity\Action          $action
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setAction($action){
+    public function setAction(\BiberLtd\Bundle\LogBundle\Entity\Action $action){
         if(!$this->setModified('action', $action)->isModified()){
             return $this;
         }
@@ -137,32 +107,20 @@ class MemberAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getAction()
-     *  				Gets $action property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          BiberLtd\Bundle\LogBundle\Entity\Action          $this->action
+     * @return \BiberLtd\Bundle\LogBundle\Entity\Action
      */
     public function getAction(){
         return $this->action;
     }
+
     /**
-     * @name            setMember()
-     *  				Sets $member property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
+     * @param \BiberLtd\Bundle\MemberManagementBundle\Entity\Member $member
      *
-     * @param           BiberLtd\Bundle\MemberManagementBundle\Entity\Member          $member
-     *
-     * @return          object          $this
+     * @return $this
      */
-    public function setMember($member){
+    public function setMember(\BiberLtd\Bundle\MemberManagementBundle\Entity\Member $member){
         if(!$this->setModified('member', $member)->isModified()){
             return $this;
         }
@@ -170,15 +128,9 @@ class MemberAccessRight extends CoreEntity
 
         return $this;
     }
+
     /**
-     * @name            getMember()
-     *  				Gets $member property.
-     * .
-     * @author          Murat Ünal
-     * @since			1.0.0
-     * @version         1.0.0
-     *
-     * @return          BiberLtd\Bundle\MemberManagementBundle\Entity\Member          $this->member
+     * @return \BiberLtd\Bundle\MemberManagementBundle\Entity\Member
      */
     public function getMember(){
         return $this->member;
