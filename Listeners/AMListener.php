@@ -5,7 +5,7 @@
  * @copyright   Biber Ltd. (http://www.biberltd.com) (C) 2015
  * @license     GPLv3
  *
- * @date        10.12.2015
+ * @date        16.01.2015
  */
 namespace BiberLtd\Bundle\AccessManagementBundle\Listeners;
 
@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpKernel\Event;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-
 
 class AMListener extends Core{
     /** @var $session               Current session */
@@ -32,7 +31,6 @@ class AMListener extends Core{
     public function __construct($kernel){
         parent::__construct($kernel);
         $this->session = $this->kernel->getContainer()->get('session');
-        $this->cookie = $this->kernel->getContainer()->get('request')->cookies;
     }
     /*
      * Destructor
@@ -48,6 +46,8 @@ class AMListener extends Core{
      */
     public function onKernelRequest(\Symfony\Component\HttpKernel\Event\GetResponseEvent $e){
         $request = $e->getRequest();
+
+        $this->cookie = $request->cookies;
         $enc = $this->kernel->getContainer()->get('encryption');
         $this->session = $this->kernel->getContainer()->get('session');
         $encrypted_cookie = $this->cookie->get('bbr_member');
