@@ -26,7 +26,7 @@ class MemberAccessRight extends CoreEntity
 {
     /**
      * @ORM\Column(type="string", length=1, nullable=false, options={"default":"g"})
-     * @var \string
+     * @var string
      */
     private $right;
 
@@ -57,7 +57,7 @@ class MemberAccessRight extends CoreEntity
      *
      * @return $this
      */
-    public function setRight(\string $right){
+    public function setRight(string $right){
         if(!$this->setModified('right', $right)->isModified()){
             return $this;
         }

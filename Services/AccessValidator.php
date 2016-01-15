@@ -39,18 +39,15 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @param string $actionCode
-     * @param null   $memberData
+     * @param string     $actionCode
+     * @param array|null $data
      *
      * @return bool
      */
-    public function isActionGranted(\string $actionCode, $memberData = null){
-        $data = $memberData;
-        if(is_null($data)){
-            $data = $this->decryptSessionData();
-        }
+    public function isActionGranted(string $actionCode, array $data = null){
+        $data = $data ?? $this->decryptSessionData();
         if(!isset($data['granted_actions'])){
-            $data['granted_actions'] = array();
+            $data['granted_actions'] = [];
         }
         if(in_array($actionCode, $data['granted_actions'])){
             return true;
@@ -59,18 +56,15 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @param string $actionCode
-     * @param null   $memberData
+     * @param string     $actionCode
+     * @param array|null $ata
      *
      * @return bool
      */
-    public function isActionRevoked(\string $actionCode, $memberData = null){
-        $data = $memberData;
-        if(is_null($data)){
-            $data = $this->decryptSessionData();
-        }
+    public function isActionRevoked(string $actionCode, array $ata = null){
+        $data = $data ?? $this->decryptSessionData();
         if(!isset($data['revoked_actions'])){
-            $data['revoked_actions'] = array();
+            $data['revoked_actions'] = [];
         }
         if(in_array($actionCode, $data['revoked_actions'])){
             return true;
@@ -79,18 +73,15 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @param null $member_data
+     * @param array|null $data
      *
      * @return bool
      */
-    public function isGuest($member_data = null){
+    public function isGuest(array $data = null){
         if($this->session->get('is_logged_in')){
             return false;
         }
-        $data = $member_data;
-        if(is_null($member_data)){
-            $data = $this->decryptSessionData();
-        }
+        $data = $data ?? $this->decryptSessionData();
         if(!isset($data['username']) || $data['username'] == 'guest'){
             return true;
         }
@@ -98,15 +89,12 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @param null $member_data
+     * @param array|null $data
      *
      * @return bool
      */
-    public function isAuthenticated($member_data = null){
-        $data = $member_data;
-        if(is_null($member_data)){
-            $data = $this->decryptSessionData();
-        }
+    public function isAuthenticated(array $data = null){
+        $data = $data ?? $this->decryptSessionData();
         if($this->session->get('authentication_data') != false){
             if(isset($data['username']) && $data['username'] != 'guest'){
                 return true;
@@ -116,17 +104,15 @@ class AccessValidator extends Core{
     }
 
     /**
-     * @param null  $member_data
-     * @param array $access_map
-     * @param bool  $debug
+     * @param array|null $data
+     * @param array      $access_map
+     * @param bool|null  $debug
      *
      * @return bool
      */
-    public function hasAccess($member_data = null, $access_map = array(), $debug = false){
-        $data = $member_data;
-        if(is_null($member_data)){
-            $data = $this->decryptSessionData();
-        }
+    public function hasAccess(array $data = null, array $access_map = [], bool $debug = null){
+        $debug = $debug ?? false;
+        $data = $data ?? $this->decryptSessionData();
         if(!isset($data['sites'])){
             $data['sites'] = array(1);
         }
@@ -243,7 +229,7 @@ class AccessValidator extends Core{
                 'status'        => 'a',
                 'date_birth'    => null,
                 'site'          => null,
-                'groups'        => array(),
+                'groups'        => [],
                 'session_id'    => $this->kernel->getContainer()->get('session')->getId(),
             );
         }

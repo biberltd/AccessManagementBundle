@@ -59,7 +59,7 @@ class MemberGroupAccessRight extends CoreEntity
      *
      * @return $this
      */
-    public function setRight(\string $right){
+    public function setRight(string $right){
         if(!$this->setModified('right', $right)->isModified()){
             return $this;
         }

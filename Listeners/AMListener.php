@@ -51,7 +51,7 @@ class AMListener extends Core{
         $enc = $this->kernel->getContainer()->get('encryption');
         $this->session = $this->kernel->getContainer()->get('session');
         $encrypted_cookie = $this->cookie->get('bbr_member');
-        $cookie = array();
+        $cookie = [];
         if(!is_null($encrypted_cookie) && isset($encrypted_cookie) && !$encrypted_cookie){
             $cookie = $enc->input($encrypted_cookie)->key($this->kernel->getContainer()->getParameter('app_key'))->decrypt('enc_reversible_pkey')->output();
             $cookie = unserialize(base64_decode($cookie));

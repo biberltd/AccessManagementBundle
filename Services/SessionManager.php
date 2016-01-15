@@ -59,7 +59,7 @@ class SessionManager extends Core
      *
      * @return bool
      */
-    public function authenticate(\string $username, \string $password)
+    public function authenticate(string $username, string $password)
     {
         $MMModel = new MMBService\MemberManagementModel($this->kernel, 'default', 'doctrine');
         $AMModel = new AMBService\AccessManagementModel($this->kernel, 'default', 'doctrine');
@@ -81,8 +81,8 @@ class SessionManager extends Core
          * Get member's groups.
          */
         $response = $MMModel->listGroupsOfMember($member);
-        $group_codes = array();
-        $groupIds = array();
+        $group_codes = [];
+        $groupIds = [];
         if (!$response->error->exist) {
             $groups = $response->result->set;
             foreach ($groups as $group) {
@@ -94,7 +94,7 @@ class SessionManager extends Core
          * Get member's sites.
          */
         $response = $MMModel->listSitesOfMember($member);
-        $siteIds = array();
+        $siteIds = [];
         $siteIds[] = $member->getSite()->getId();
         if (!$response->error->exist) {
             $sites = $response->result->set;
@@ -107,7 +107,7 @@ class SessionManager extends Core
 	    /**
 	     * Which actions are granted?
 	     */
-        $grantedActions = array();
+        $grantedActions = [];
         $response = $AMModel->listGrantedActionsOfMember($member->getId());
         if (!$response->error->exist) {
             foreach ($response->result->set as $action) {
@@ -126,7 +126,7 @@ class SessionManager extends Core
 	    /**
 	     * Which actions are revooked?
 	     */
-        $revokedActions = array();
+        $revokedActions = [];
         $response = $AMModel->listRevokedActionsOfMember($member->getId());
         if (!$response->error->exist) {
             foreach ($response->result->set as $action) {
@@ -193,7 +193,7 @@ class SessionManager extends Core
 	 */
     public function decrypt($hashed_data){
         if (is_null($hashed_data) || !$hashed_data) {
-            return array();
+            return [];
         }
         $enc = $this->kernel->getContainer()->get('encryption');
         $data = $enc->input($hashed_data)->key($this->kernel->getContainer()->getParameter('app_key'))->decrypt('enc_reversible_pkey')->output();
@@ -212,20 +212,17 @@ class SessionManager extends Core
         return true;
     }
 
-	/**
-	 * @param $key
-	 * @param $value
-	 *
-	 * @return bool
-	 */
-    public function addDetail($key, $value)
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function addDetail(string $key, $value)
     {
         $current = $this->session->get('authentication_data');
-
         $current = $this->decrypt($current);
-
         $current[$key] = $value;
-
         $current = $this->encrypt($current);
 
         $this->session->set('authentication_data', $current);
@@ -233,12 +230,12 @@ class SessionManager extends Core
         return true;
     }
 
-	/**
-	 * @param $key
-	 *
-	 * @return bool
-	 */
-    public function getDetail($key)
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function getDetail(string $key)
     {
         $current = $this->session->get('authentication_data');
         $current = $this->decrypt($current);
@@ -328,7 +325,7 @@ class SessionManager extends Core
 	 *
 	 * @return bool
 	 */
-    public function setDetail(\string $key, $value)
+    public function setDetail(string $key, $value)
     {
         $current = $this->dumpDetails();
 
@@ -348,19 +345,20 @@ class SessionManager extends Core
 	 *
 	 * @return mixed
 	 */
-    public function setId(\string $sessionId){
+    public function setId(string $sessionId){
         return $this->session->setId($sessionId);
     }
 
-	/**
-	 * @param       $action
-	 * @param int   $site
-	 * @param array $extra
-	 *
-	 * @return bool
-	 */
-    public function logAction($action, $site = 1, $extra = array())
+    /**
+     * @param string   $action
+     * @param int|null $site
+     * @param array    $extra
+     *
+     * @return bool
+     */
+    public function logAction(string $action, int $site = null, $extra = [])
     {
+        $site = $site ?? 1;
         $logModel = $this->kernel->getContainer()->get('logbundle.model');
         $cookieSessionExists = false;
         $sessionExists = false;
@@ -406,13 +404,14 @@ class SessionManager extends Core
         return true;
     }
 
-	/**
-	 * @param string $log
-	 *
-	 * @return bool
-	 */
-    public function update(\string $log = 'login')
+    /**
+     * @param string|null $log
+     *
+     * @return bool
+     */
+    public function update(string $log = null)
     {
+        $log = $log ?? 'login';
         $logModel = $this->kernel->getContainer()->get('logbundle.model');
         $memberModel = $this->kernel->getContainer()->get('membermanagement.model');
         $cookieSessionExists = false;
