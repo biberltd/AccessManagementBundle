@@ -61,7 +61,7 @@ class AccessManagementModel extends CoreModel {
      *                  r: revoked
      */
     public function grantRightToMember($member, $action) {
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
         $aModel = new LBService\LogModel($this->kernel, $this->dbConnection, $this->orm);
         $response = $mModel->getMember($member);
@@ -84,7 +84,7 @@ class AccessManagementModel extends CoreModel {
         $this->em->persist($ar);
         $this->em->flush($ar);
 
-        return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, microtime());
+        return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, microtime(true));
 
     }
 
@@ -100,7 +100,7 @@ class AccessManagementModel extends CoreModel {
      *                  r: revoked
      */
     public function grantRightToMemberGroup($group, $action) {
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
         $aModel = new LBService\LogModel($this->kernel, $this->dbConnection, $this->orm);
         $response  = $mModel->getMember($group);
@@ -124,7 +124,7 @@ class AccessManagementModel extends CoreModel {
         $this->em->persist($ar);
         $this->em->flush($ar);
 
-        return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, microtime());
+        return new ModelResponse($ar, 1, 0, null, false, 'S:D:003', 'Selected entries have been successfully inserted into database.', $timeStamp, microtime(true));
     }
 
 	/**
@@ -135,7 +135,7 @@ class AccessManagementModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool
 	 */
     public function isMemberGrantedAction($member, $action, bool $bypass = null) {
-	    $timeStamp = microtime();
+	    $timeStamp = microtime(true);
 	    $bypass = $bypass ?? false;
 	    $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
         $aModel = new LBService\LogModel($this->kernel, $this->dbConnection, $this->orm);
@@ -174,7 +174,7 @@ class AccessManagementModel extends CoreModel {
         }
 
         if (!$bypass) {
-            return new ModelResponse($set, 1, 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+            return new ModelResponse($set, 1, 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
         }
         if (!result) {
             return $set;
@@ -190,7 +190,7 @@ class AccessManagementModel extends CoreModel {
      * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|bool
      */
     public function isMemberGroupGrantedAction($group, $action, bool $bypass = null) {
-	    $timeStamp = microtime();
+	    $timeStamp = microtime(true);
 	    $bypass = $bypass ?? false;
 	    if (!is_bool($bypass)) {
             return $this->createException('InvalidParameter', '$bypass parameter must hold boolean value. '.gettype($bypass).' value supplied.', 'msg.error.invalid.parameter.group');
@@ -242,7 +242,7 @@ class AccessManagementModel extends CoreModel {
         );
 
         if (!$bypass) {
-            return new ModelResponse($set, 1, 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+            return new ModelResponse($set, 1, 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
         }
         if (!$result) {
             return $result;
@@ -256,7 +256,7 @@ class AccessManagementModel extends CoreModel {
      * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listGrantedActionsOfMember($member){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
 
         $response = $mModel->getMember($member);
@@ -283,7 +283,7 @@ class AccessManagementModel extends CoreModel {
         foreach($result as $marEntry){
             $actions[] = $marEntry->getAction();
         }
-        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
     /**
@@ -292,7 +292,7 @@ class AccessManagementModel extends CoreModel {
      * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listGrantedActionsOfMemberGroup($group){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
 
         $response = $mModel->getGroup($group);
@@ -318,7 +318,7 @@ class AccessManagementModel extends CoreModel {
         foreach($result as $mgarEntry){
             $actions[] = $mgarEntry->getAction();
         }
-        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
 	/**
@@ -329,7 +329,7 @@ class AccessManagementModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function listMemberAccessRights(array $filter = null, array $sortOrder = null, array $limit = null){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $oStr = $wStr = $gStr = $fStr = '';
 
         $qStr = 'SELECT '.$this->entity['mar']['alias']
@@ -365,9 +365,9 @@ class AccessManagementModel extends CoreModel {
         $totalRows = count($result);
 
         if ($totalRows < 1) {
-            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime());
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
-        return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
 	/**
@@ -378,7 +378,7 @@ class AccessManagementModel extends CoreModel {
 	 * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse
 	 */
     public function listMemberGroupAccessRights(array $filter = null, array $sortOrder = null, array $limit = null){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $oStr = $wStr = $gStr = $fStr = '';
 
         $qStr = 'SELECT '.$this->entity['mgar']['alias']
@@ -417,9 +417,9 @@ class AccessManagementModel extends CoreModel {
         $totalRows = count($result);
 
         if ($totalRows < 1) {
-            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime());
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
-        return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($result, $totalRows, 0, null, false, 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
     /**
@@ -428,7 +428,7 @@ class AccessManagementModel extends CoreModel {
      * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listRevokedActionsOfMember($member){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
 
         $response = $mModel->getMember($member);
@@ -456,7 +456,7 @@ class AccessManagementModel extends CoreModel {
             $actions[] = $marEntry->getAction();
         }
 
-        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
     /**
@@ -465,7 +465,7 @@ class AccessManagementModel extends CoreModel {
      * @return \BiberLtd\Bundle\CoreBundle\Responses\ModelResponse|mixed
      */
     public function listRevokedActionsOfMemberGroup($group){
-        $timeStamp = microtime();
+        $timeStamp = microtime(true);
         $mModel = new MMBService\MemberManagementModel($this->kernel, $this->dbConnection, $this->orm);
 
         $response = $mModel->getGroup($group);
@@ -491,6 +491,6 @@ class AccessManagementModel extends CoreModel {
         foreach($result as $mgarEntry){
             $actions[] = $mgarEntry->getAction();
         }
-        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime());
+        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 }
