@@ -14,6 +14,7 @@ use BiberLtd\Bundle\CoreBundle\Core as Core;
 
 use BiberLtd\Bundle\AccessManagementBundle\Services as AMBService;
 use BiberLtd\Bundle\MemberManagementBundle\Services as MMBService;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SessionManager extends Core
 {
@@ -29,9 +30,9 @@ class SessionManager extends Core
      *
      * @param           string $kernel
      */
-    public function __construct($kernel)
+    public function __construct($kernel, RequestStack $requestStack)
     {
-        parent::__construct($kernel);
+        parent::__construct($kernel, $requestStack);
         $this->session = $kernel->getContainer()->get('session');
     }
 
@@ -391,9 +392,9 @@ class SessionManager extends Core
         /** Register a new session entry */
         $now = new \DateTime('now', new \DateTimeZone($this->timezone));
         $logEntryData = array(
-            'ip_v4' => $this->kernel->getContainer()->get('request')->getClientIp(),
-            'url' => $this->kernel->getContainer()->get('request')->getHost() . $this->kernel->getContainer()->get('request')->getRequestUri(),
-            'agent' => $this->kernel->getContainer()->get('request')->headers->get('user-agent'),
+            'ip_v4' => $this->requestStack->getCurrentRequest()->getClientIp(),
+            'url' => $this->requestStack->getCurrentRequest()->getHost() . $this->requestStack->getCurrentRequest()->getRequestUri(),
+            'agent' => $this->kernel->getContainer()->requestStack->getCurrentRequest()->headers->get('user-agent'),
             'date_action' => $now,
             'action' => $action,
             'site' => $site,
