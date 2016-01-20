@@ -394,7 +394,7 @@ class SessionManager extends Core
         $logEntryData = array(
             'ip_v4' => $this->requestStack->getCurrentRequest()->getClientIp(),
             'url' => $this->requestStack->getCurrentRequest()->getHost() . $this->requestStack->getCurrentRequest()->getRequestUri(),
-            'agent' => $this->kernel->getContainer()->requestStack->getCurrentRequest()->headers->get('user-agent'),
+            'agent' => $this->requestStack->getCurrentRequest()->headers->get('user-agent'),
             'date_action' => $now,
             'action' => $action,
             'site' => $site,
