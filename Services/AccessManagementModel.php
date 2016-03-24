@@ -318,7 +318,7 @@ class AccessManagementModel extends CoreModel {
         foreach($result as $mgarEntry){
             $actions[] = $mgarEntry->getAction();
         }
-        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'S:D:002', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
+        return new ModelResponse($actions, count($actions), 0, null, false, 'S:D:003', 'Entries successfully fetched from database.', $timeStamp, microtime(true));
     }
 
 	/**
