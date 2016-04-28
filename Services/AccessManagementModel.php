@@ -276,8 +276,7 @@ class AccessManagementModel extends CoreModel {
         $total_rows = count($result);
 
         if ($total_rows < 1) {
-            $this->response->code = 'err.db.entry.notexist';
-            return $this->response;
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
         $actions = [];
         foreach($result as $marEntry){
@@ -311,8 +310,7 @@ class AccessManagementModel extends CoreModel {
         $total_rows = count($result);
 
         if ($total_rows < 1) {
-            $this->response->code = 'err.db.entry.notexist';
-            return $this->response;
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
         $actions = [];
         foreach($result as $mgarEntry){
@@ -448,8 +446,7 @@ class AccessManagementModel extends CoreModel {
         $total_rows = count($result);
 
         if ($total_rows < 1) {
-            $this->response->code = 'err.db.entry.notexist';
-            return $this->response;
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
         $actions = [];
         foreach($result as $marEntry){
@@ -484,8 +481,7 @@ class AccessManagementModel extends CoreModel {
         $total_rows = count($result);
 
         if ($total_rows < 1) {
-            $this->response->code = 'err.db.entry.notexist';
-            return $this->response;
+            return new ModelResponse(null, 0, 0, null, true, 'E:D:002', 'No entries found in database that matches to your criterion.', $timeStamp, microtime(true));
         }
         $actions = [];
         foreach($result as $mgarEntry){
