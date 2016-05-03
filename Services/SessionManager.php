@@ -13,6 +13,7 @@ namespace BiberLtd\Bundle\AccessManagementBundle\Services;
 use BiberLtd\Bundle\CoreBundle\Core as Core;
 
 use BiberLtd\Bundle\AccessManagementBundle\Services as AMBService;
+use BiberLtd\Bundle\MemberManagementBundle\Entity\Member;
 use BiberLtd\Bundle\MemberManagementBundle\Services as MMBService;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -63,7 +64,6 @@ class SessionManager extends Core
     public function authenticate(string $username, string $password)
     {
         $MMModel = new MMBService\MemberManagementModel($this->kernel, 'default', 'doctrine');
-        $AMModel = new AMBService\AccessManagementModel($this->kernel, 'default', 'doctrine');
 
         $response = $MMModel->validateAccount($username, $password);
 
@@ -78,6 +78,39 @@ class SessionManager extends Core
          */
         $member = $response->result->set;
 
+        return $this->createSessionData($member);
+    }
+
+    /**
+     * @param string $username
+     * @return bool
+     *
+     * @note MUST be used cautiously
+     */
+    public function authenticateWithoutPassword(string $username)
+    {
+        $MMModel = new MMBService\MemberManagementModel($this->kernel, 'default', 'doctrine');
+
+        $response = $MMModel->getMember($username);
+
+        if ($response->error->exist) {
+            $this->session->set('authentication_data', false);
+            $this->session->set('is_logged_in', false);
+
+            return false;
+        }
+        /**
+         * Get Member Details
+         */
+        $member = $response->result->set;
+
+        return $this->createSessionData($member);
+
+    }
+
+    private function createSessionData(Member $member){
+        $MMModel = new MMBService\MemberManagementModel($this->kernel, 'default', 'doctrine');
+        $AMModel = new AMBService\AccessManagementModel($this->kernel, 'default', 'doctrine');
         /**
          * Get member's groups.
          */
@@ -105,9 +138,9 @@ class SessionManager extends Core
                 }
             }
         }
-	    /**
-	     * Which actions are granted?
-	     */
+        /**
+         * Which actions are granted?
+         */
         $grantedActions = [];
         $response = $AMModel->listGrantedActionsOfMember($member->getId());
         if (!$response->error->exist) {
@@ -124,9 +157,9 @@ class SessionManager extends Core
             }
         }
 
-	    /**
-	     * Which actions are revooked?
-	     */
+        /**
+         * Which actions are revooked?
+         */
         $revokedActions = [];
         $response = $AMModel->listRevokedActionsOfMember($member->getId());
         if (!$response->error->exist) {
@@ -170,7 +203,6 @@ class SessionManager extends Core
         $this->session->set('authentication_data', $encryptedData);
         return true;
     }
-
 	/**
 	 * @param  mixed $data
 	 *
