@@ -205,6 +205,7 @@ class AccessValidator extends Core{
             }
             return false;
         }
+        return false;
     }
 
     /**
