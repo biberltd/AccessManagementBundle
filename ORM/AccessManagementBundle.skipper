@@ -10,14 +10,14 @@
         </orm-attributes>
       </field>
       <field name="date_assigned" description="Date when the access right is assigned." type="datetime" required="true" uuid="3b7913aa-252e-442e-9b21-fdf99bf5babe"/>
-      <index name="idxUMemberAction" unique="true">
+      <index name="idxUMemberAccessRightMemberAction" unique="true">
         <index-field name="member"/>
         <index-field name="action"/>
       </index>
-      <index name="idxNDateAssigned">
+      <index name="idxNMemberAccessRightDateAssigned">
         <index-field name="date_assigned"/>
       </index>
-      <index name="idxNAction">
+      <index name="idxNMemberAccessRightAction">
         <index-field name="action"/>
       </index>
       <orm-attributes>
@@ -51,14 +51,14 @@
       <field name="action" description="Action to be restricted." type="smallint" size="5" required="true" primary="true" uuid="90eb0c74-1887-4d94-9479-308537f15758"/>
       <field name="right" description="g:granted,r:revoked." type="string" size="1" required="true" uuid="77292c59-7f78-4dd8-8d51-d498b049836f"/>
       <field name="date_assigned" description="Date when the right is assigned." type="datetime" required="true" uuid="65db0f9d-d627-4c72-b6e1-5a3f4a02af29"/>
-      <index name="idxUMemberGroupAction" unique="true">
+      <index name="idxUMemberGroupAccessRightMemberGroupAction" unique="true">
         <index-field name="member_group"/>
         <index-field name="action"/>
       </index>
-      <index name="idxNDateAssigned">
+      <index name="idxNMemberGroupAccessRightDateAssigned">
         <index-field name="date_assigned"/>
       </index>
-      <index name="idxNAction">
+      <index name="idxNMemberGroupAccessRightAction">
         <index-field name="action"/>
       </index>
       <orm-attributes>
