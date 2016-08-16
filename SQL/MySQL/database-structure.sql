@@ -20,9 +20,9 @@ CREATE TABLE `member_access_right` (
   PRIMARY KEY (`member`,`action`),
   UNIQUE KEY `idxUMemberAccessRight` (`member`,`action`) USING BTREE,
   KEY `idxNMemberAccessRightDateAssigned` (`date_assigned`) USING BTREE,
-  KEY `idxFActionGrantedToMember` (`action`) USING BTREE,
-  CONSTRAINT `idxFMemberGrantedAction` FOREIGN KEY (`member`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `idxFActionGrantedToMember` FOREIGN KEY (`action`) REFERENCES `action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `idxNActionGrantedToMember` (`action`) USING BTREE,
+  CONSTRAINT `idxFMemberOfMemberAccessRight` FOREIGN KEY (`member`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idxFActionOfMemberAccessRight` FOREIGN KEY (`action`) REFERENCES `action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -36,8 +36,8 @@ CREATE TABLE `member_group_access_right` (
   `date_assigned` datetime NOT NULL COMMENT 'Date when the right is assigned.',
   PRIMARY KEY (`member_group`,`action`),
   UNIQUE KEY `idxUMemberGroupAccessRight` (`member_group`,`action`) USING BTREE,
-  KEY `idxFActionGrantedToMemberGroup` (`action`) USING BTREE,
+  KEY `idxNActionGrantedToMemberGroup` (`action`) USING BTREE,
   KEY `idxNMemberGroupAccessRightDateAssigned` (`date_assigned`) USING BTREE,
-  CONSTRAINT `idxFActionGrantedToMemberGroup` FOREIGN KEY (`action`) REFERENCES `action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `idxFMemberGroupGrantedAction` FOREIGN KEY (`member_group`) REFERENCES `member_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `idxFActionOfMemberGroupAccessRight` FOREIGN KEY (`action`) REFERENCES `action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `idxFMemberGroupOfMemberGroupAccessRight` FOREIGN KEY (`member_group`) REFERENCES `member_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
