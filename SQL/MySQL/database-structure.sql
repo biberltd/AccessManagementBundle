@@ -41,3 +41,5 @@ CREATE TABLE `member_group_access_right` (
   CONSTRAINT `idxFActionOfMemberGroupAccessRight` FOREIGN KEY (`action`) REFERENCES `action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `idxFMemberGroupOfMemberGroupAccessRight` FOREIGN KEY (`member_group`) REFERENCES `member_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci ROW_FORMAT=COMPACT;
+
+SET FOREIGN_KEY_CHECKS=1;
